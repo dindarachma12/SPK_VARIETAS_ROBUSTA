@@ -43,7 +43,6 @@ $validasi = isset($_GET['validasi']) ? trim($_GET['validasi']) : "";
             background-size: 100%;
         }
 
-
         /* NAVBAR */
         .navbar-custom {
             background: #fff;
@@ -180,8 +179,8 @@ $validasi = isset($_GET['validasi']) ? trim($_GET['validasi']) : "";
 
             <div class="collapse navbar-collapse justify-content-end" id="navMenu">
                 <ul class="navbar-nav align-items-center me-3">
-                    <li class="nav-item"><a class="nav-link active" href="homepage.php">Home</a></li>
-                    <li class="nav-item"><a class="nav-link unactive" href="rekomendasi.php">Rekomendasi</a></li>
+                    <li class="nav-item"><a class="nav-link unactive" href="homepage.php">Home</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="rekomendasi.php">Rekomendasi</a></li>
                     <li class="nav-item"><a class="nav-link unactive" href="kriteria.php">Kriteria</a></li>
                     <li class="nav-item"><a class="nav-link unactive" href="subkriteria.php">Subkriteria</a></li>
                     <li class="nav-item"><a class="nav-link unactive" href="varietas.php">Varietas</a></li>
@@ -198,30 +197,9 @@ $validasi = isset($_GET['validasi']) ? trim($_GET['validasi']) : "";
             <div class="row gx-4 gx-lg-5 align-items-center">
                 <!-- LEFT: teks -->
                 <div class="col-lg-6">
-                    <h1 class="hero-title">Temukan Varietas Robusta Sesuai dengan Lahan Anda!</h1>
+                    <h1 class="hero-title">Bagaimana kondisi lahan Anda?</h1>
                     <hr class="divider" />
-                    <p class="hero-sub">Sistem Pendukung Keputusan untuk membantu petani Jember menentukan varietas kopi robusta yang paling sesuai dengan kondisi lingkungan lahan</p>
-                    <div class="mt-3">
-                        <a href="rekomendasi.php" class="btn btn-primary">Lihat Rekomendasi</a>
-                    </div>
-                </div>
-
-                <!-- RIGHT: grid gambar 2x2 -->
-                <div class="col-lg-6">
-                    <div class="image-grid">
-                        <div class="img-wrap">
-                            <img src="assets/img/Rectangle 1.png" alt="Panen kopi">
-                        </div>
-                        <div class="img-wrap">
-                            <img src="assets/img/Rectangle 3.png" alt="Inspeksi tanaman">
-                        </div>
-                        <div class="img-wrap">
-                            <img src="assets/img/Rectangle 4.png" alt="Biji panggang">
-                        </div>
-                        <div class="img-wrap">
-                            <img src="assets/img/kopi 2.png" alt="Buah kopi">
-                        </div>
-                    </div>
+                    <p class="hero-sub">Masukkan kondisi lingkungan lahan budidaya kopi untuk mendapatkan rekomendasi varietas kopi robusta yang paling sesuai</p>
                 </div>
             </div>
 
