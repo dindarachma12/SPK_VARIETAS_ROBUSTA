@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 19, 2026 at 09:49 AM
+-- Generation Time: Jan 22, 2026 at 04:34 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -118,7 +118,12 @@ INSERT INTO `matriks` (`id_matriks`, `id_varietas`, `id_kriteria`, `id_subkriter
 (23, 5, 2, 6),
 (24, 5, 3, 12),
 (25, 5, 4, 17),
-(26, 5, 5, 24);
+(26, 5, 5, 24),
+(27, 0, 1, 0),
+(28, 0, 2, 0),
+(29, 0, 3, 0),
+(30, 0, 4, 0),
+(31, 0, 5, 0);
 
 -- --------------------------------------------------------
 
@@ -183,8 +188,7 @@ INSERT INTO `subkriteria` (`id_subkriteria`, `id_kriteria`, `nama_subkriteria`, 
 (22, 5, '700-600 mdpl', 4),
 (23, 5, '600-500 mdpl', 3),
 (24, 5, '500-300 mdpl', 2),
-(25, 5, '&lt;300 mdpl', 1),
-(26, 5, '10', 6);
+(25, 5, '&lt;300 mdpl', 1);
 
 -- --------------------------------------------------------
 
@@ -195,29 +199,8 @@ INSERT INTO `subkriteria` (`id_subkriteria`, `id_kriteria`, `nama_subkriteria`, 
 CREATE TABLE `varietas` (
   `id_varietas` int(11) NOT NULL,
   `kode_varietas` varchar(20) NOT NULL,
-  `nama_varietas` varchar(20) NOT NULL,
-  `username` varchar(20) NOT NULL
+  `nama_varietas` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `varietas`
---
-
-INSERT INTO `varietas` (`id_varietas`, `kode_varietas`, `nama_varietas`, `username`) VALUES
-(1, 'K1', 'BP 409', 'dinda'),
-(2, 'K2', 'SA 237', 'dinda'),
-(3, 'K3', 'BP 288', 'dinda'),
-(4, 'K4', 'BP 358', 'dinda'),
-(5, 'K5', 'BP 42', 'dinda'),
-(6, 'K4', 'BP 358', 'dinda'),
-(7, 'K5', 'BP 42', 'dinda'),
-(8, 'K6', 'SA 203', 'dinda'),
-(9, 'K7', 'BP 936', 'dinda'),
-(10, 'K8', 'BP 534', 'dinda'),
-(11, 'K9', 'BP 436', 'dinda'),
-(12, 'K10', 'BP 920', 'dinda'),
-(13, 'K11', 'BP 939', 'dinda'),
-(14, 'K12', 'BP 308', 'dinda');
 
 --
 -- Indexes for dumped tables
@@ -279,7 +262,7 @@ ALTER TABLE `kriteria`
 -- AUTO_INCREMENT for table `matriks`
 --
 ALTER TABLE `matriks`
-  MODIFY `id_matriks` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id_matriks` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `pengguna`
@@ -297,7 +280,7 @@ ALTER TABLE `subkriteria`
 -- AUTO_INCREMENT for table `varietas`
 --
 ALTER TABLE `varietas`
-  MODIFY `id_varietas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_varietas` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

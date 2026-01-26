@@ -9,8 +9,8 @@ if (!isset($_SESSION['nama']) || !isset($_SESSION['level'])) {
 }
 
 // Proses hapus
-if (isset($_POST['hapus_kriteria']) && isset($_POST['id'])) {
-    $id = htmlspecialchars($_POST['id']);
+if (isset($_POST['hapus_kriteria']) && isset($_POST['id_kriteria'])) {
+    $id = htmlspecialchars($_POST['id_kriteria']);
     
     // Cek apakah kriteria yang akan dihapus ada di database
     $query = mysqli_query($koneksi, "SELECT * FROM kriteria WHERE id_kriteria = '$id'");

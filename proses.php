@@ -128,64 +128,62 @@ if (isset($_POST['edit_subkriteria'])) {
 }
 
 if (isset($_POST['tambah_varietas'])) {
-	$kode = htmlspecialchars($_POST['kode']);
-	$user = htmlspecialchars($_POST['user']);
-	$nama = htmlspecialchars($_POST['nama']);
+	$kode = htmlspecialchars($_POST['kode_varietas']);
+	$nama = htmlspecialchars($_POST['nama_varietas']);
 	$kriteria = $_POST['kriteria'];
 	$subkriteria = $_POST['subkriteria'];
 
 	$query = mysqli_query($koneksi, "SELECT kode_varietas FROM varietas WHERE kode_varietas = '$kode'");
 	if (mysqli_num_rows($query) > 0) {
-		header("Location: data_varietas.php?validasi=warning");
+		header("Location: varietas.php?validasi=warning");
 		exit;
 	} else {
-		$insert = mysqli_query($koneksi, "INSERT INTO varietas(kode_varietas, nama_varietas, username) VALUES('$kode', '$nama' , '$user')");
+		$insert = mysqli_query($koneksi, "INSERT INTO varietas(kode_varietas, nama_varietas) VALUES('$kode', '$nama')");
 		if ($insert) {
 			$get_id = mysqli_fetch_array(mysqli_query($koneksi, "SELECT id_varietas FROM varietas ORDER BY id_varietas DESC LIMIT 1"));
 			$id_varietas = $get_id['id_varietas'];
 			for ($i = 0; $i < count($kriteria); $i++) {
 				$insert = mysqli_query($koneksi, "INSERT INTO matriks(id_varietas, id_kriteria, id_subkriteria) VALUES('$id_varietas', '$kriteria[$i]', '$subkriteria[$i]')");
 				if (!$insert) {
-					header("Location: data_varietas.php?validasi=error");
+					header("Location: varietas.php?validasi=error");
 					exit;
 				}
 			}
-			header("Location: data_varietas.php?validasi=sukses-tambah");
+			header("Location: varietas.php?validasi=sukses-tambah");
 			exit;
 		} else {
-			header("Location: data_varietas.php?validasi=error");
+			header("Location: varietas.php?validasi=error");
 			exit;
 		}
 	}
 }
 
 if (isset($_POST['edit_varietas'])) {
-	$id = htmlspecialchars($_POST['id']);
-	$kode = htmlspecialchars($_POST['kode']);
-	$user = htmlspecialchars($_POST['user']);
-	$nama = htmlspecialchars($_POST['nama']);
+	$id = htmlspecialchars($_POST['id_varietas']);
+	$kode = htmlspecialchars($_POST['kode_varietas']);
+	$nama = htmlspecialchars($_POST['nama_varietas']);
 	$kriteria = $_POST['kriteria'];
 	$subkriteria = $_POST['subkriteria'];
 
-	$update = mysqli_query($koneksi, "UPDATE varietas SET kode_varietas = '$kode', nama_varietas = '$nama', username = '$user' WHERE id_varietas = '$id'");
+	$update = mysqli_query($koneksi, "UPDATE varietas SET kode_varietas = '$kode', nama_varietas = '$nama' WHERE id_varietas = '$id'");
 	if ($update) {
 		$delete = mysqli_query($koneksi, "DELETE FROM matriks WHERE id_varietas = '$id'");
 		if ($delete) {
 			for ($i = 0; $i < count($kriteria); $i++) {
 				$insert = mysqli_query($koneksi, "INSERT INTO matriks(id_varietas, id_kriteria, id_subkriteria) VALUES('$id', '$kriteria[$i]', '$subkriteria[$i]')");
 				if (!$insert) {
-					header("Location: data_varietas.php?validasi=error");
+					header("Location: varietas.php?validasi=error");
 					exit;
 				}
 			}
-			header("Location: data_varietas.php?validasi=sukses-perbarui");
+			header("Location: varietas.php?validasi=sukses-perbarui");
 			exit;
 		} else {
-			header("Location: data_varietas.php?validasi=error");
+			header("Location: varietas.php?validasi=error");
 			exit;
 		}
 	} else {
-		header("Location: data_varietas.php?validasi=error");
+		header("Location: varietas.php?validasi=error");
 		exit;
 	}
 }

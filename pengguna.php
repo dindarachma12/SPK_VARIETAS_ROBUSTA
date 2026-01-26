@@ -383,7 +383,7 @@ $query = mysqli_query($koneksi, "SELECT * FROM pengguna ORDER BY id_pengguna ASC
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                        <button type="submit" name="tambah_pengguna" class="btn btn-primary">Simpan</button>
+                        <button type="submit" name="tambah_pengguna" class="btn btn-primary">Tambah</button>
                     </div>
                 </form>
             </div>
