@@ -13,7 +13,7 @@ $validasi = isset($_GET['validasi']) ? trim($_GET['validasi']) : "";
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>RobustaKu - Home</title>
-    <link rel="icon" type="image/x-icon" href="assets/img/logo.png" />
+    <link rel="icon" type="image/x-icon" href="assets/img/logo_robustaku.png" />
 
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -171,7 +171,7 @@ $validasi = isset($_GET['validasi']) ? trim($_GET['validasi']) : "";
     <nav class="navbar navbar-expand-lg navbar-custom">
         <div class="container">
             <div class="brand-wrap">
-                <a href="homepage.php"><img src="assets/img/logo.png" alt="RobustaKu Logo"></a>
+                <a href="homepage.php"><img src="assets/img/logo_robustaku.png" alt="RobustaKu Logo"></a>
             </div>
 
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">

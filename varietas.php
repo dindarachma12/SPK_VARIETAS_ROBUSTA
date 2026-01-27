@@ -9,7 +9,6 @@ if (!isset($_SESSION['nama']) || !isset($_SESSION['level'])) {
 
 $nama_session = $_SESSION['nama'];
 $level = $_SESSION['level'];
-
 $validasi = isset($_GET['validasi']) ? trim($_GET['validasi']) : "";
 
 $query = mysqli_query($koneksi, "SELECT * FROM varietas ORDER BY id_varietas ASC");
@@ -23,7 +22,7 @@ $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <title>Varietas</title>
-    <link rel="icon" type="image/x-icon" href="assets/img/logo.png" />
+    <link rel="icon" type="image/x-icon" href="assets/img/logo_robustaku.png" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -268,7 +267,7 @@ $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
     <nav class="navbar navbar-expand-lg navbar-custom">
         <div class="container">
             <div class="brand-wrap">
-                <a href="homepage.php"><img src="assets/img/logo.png" alt="RobustaKu Logo"></a>
+                <a href="homepage.php"><img src="assets/img/logo_robustaku.png" alt="RobustaKu Logo"></a>
             </div>
 
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
@@ -483,14 +482,15 @@ $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
                             <input type="text" name="nama_varietas" id="edit_nama_varietas" class="form-control" required>
                         </div>
                         <?php
-                        $query_sub = mysqli_query($koneksi, "SELECT * FROM kriteria");
+                        $query_sub = mysqli_query($koneksi, "SELECT * FROM kriteria ORDER BY id_kriteria ASC");
+                        $idx = 0;
                         while ($baris_sub = mysqli_fetch_array($query_sub)) {
                             $id_kriteria = $baris_sub['id_kriteria'];
                         ?>
                             <div class="mb-3">
                                 <label class="form-label"><?= $baris_sub['nama_kriteria']; ?></label>
                                 <input type="hidden" name="kriteria[]" value="<?= $id_kriteria; ?>">
-                                <select name="subkriteria[]" class="form-control" id="edit_subkriteria_<?= $id_kriteria ?>" autocomplete="on">
+                                <select name="subkriteria[]" class="form-control edit-sub" id="edit_subkriteria_<?= $id_kriteria ?>" autocomplete="on">
                                     <option value="">Pilih <?= $baris_sub['nama_kriteria']; ?></option>
                                     <?php
                                     $select = mysqli_query($koneksi, "SELECT * FROM subkriteria WHERE id_kriteria = '$id_kriteria'");
@@ -541,37 +541,40 @@ $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <script>
             function viewData(id, kode, nama, subkriteriaArray) {
-            document.getElementById('view_id').value = id; 
-            document.getElementById('view_kode_varietas').value = kode;
-            document.getElementById('view_nama_varietas').value = nama;
+                document.getElementById('view_id').value = id; 
+                document.getElementById('view_kode_varietas').value = kode;
+                document.getElementById('view_nama_varietas').value = nama;
 
-            // kosongkan semua dulu
-            const inputs = document.querySelectorAll('#modalView input[id^="view_subkriteria_"]');
-            inputs.forEach(input => input.value = '');
+                const inputs = document.querySelectorAll('#modalView input[id^="view_subkriteria_"]');
+                inputs.forEach(input => input.value = '');
 
-            if (subkriteriaArray && subkriteriaArray.length > 0) {
-                subkriteriaArray.forEach((subId, index) => {
-                    const input = document.getElementById('view_subkriteria_' + index);
+                if (subkriteriaArray && subkriteriaArray.length > 0) {
+                    subkriteriaArray.forEach((subId, index) => {
+                        const input = document.getElementById('view_subkriteria_' + index);
 
-                    // ambil nama subkriteria dari select edit (sudah ada semua option)
-                    const select = document.querySelectorAll('#modalEdit select[name="subkriteria[]"]')[index];
-                    if (select) {
-                        const option = select.querySelector(`option[value="${subId}"]`);
-                        if (input && option) {
-                            input.value = option.textContent;
+                        // ambil nama subkriteria dari select edit (sudah ada semua option)
+                        const select = document.querySelectorAll('#modalEdit select[name="subkriteria[]"]')[index];
+                        if (select) {
+                            const option = select.querySelector(`option[value="${subId}"]`);
+                            if (input && option) {
+                                input.value = option.textContent;
+                            }
                         }
-                    }
-                });
+                    });
+                }
+
+                new bootstrap.Modal(document.getElementById('modalView')).show();
             }
 
-            new bootstrap.Modal(document.getElementById('modalView')).show();
-        }
 
-
-            function editData(id, kode, nama) {
+            function editData(id, kode, nama, subkriteriaArray) {
                 document.getElementById('edit_id').value = id; 
                 document.getElementById('edit_kode_varietas').value = kode;
                 document.getElementById('edit_nama_varietas').value = nama;
+                let selects = document.querySelectorAll('.edit-sub')
+                selects.forEach(s => s.value = "")
+                subkriteriaArray.forEach((s, i) => { if (selects[i]) selects[i].value = s })
+
 
                 new bootstrap.Modal(document.getElementById('modalEdit')).show();
             }

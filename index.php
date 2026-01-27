@@ -13,7 +13,7 @@ if (isset($_SESSION['nama']) && isset($_SESSION['level'])) {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>RobustaKu</title>
-    <link rel="icon" type="image/x-icon" href="assets/img/logo.png" />
+    <link rel="icon" type="image/x-icon" href="assets/img/logo_robustaku.png" />
 
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -173,7 +173,7 @@ if (isset($_SESSION['nama']) && isset($_SESSION['level'])) {
         <div class="container">
             <div class="brand-wrap">
                 <!-- Ganti logo.png sesuai aset Anda -->
-                <img src="assets/img/logo.png" alt="RobustaKu Logo">
+                <img src="assets/img/logo_robustaku.png" alt="RobustaKu Logo">
             </div>
 
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">

@@ -53,7 +53,7 @@ if (isset($_POST['edit_profil'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <title>Profil</title>
-    <link rel="icon" type="image/x-icon" href="assets/img/logo.png" />
+    <link rel="icon" type="image/x-icon" href="assets/img/logo_robustaku.png" />
     <!-- Poppins font -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <!-- Bootstrap (only for grid and basic components) -->
@@ -227,7 +227,7 @@ if (isset($_POST['edit_profil'])) {
     <nav class="navbar navbar-expand-lg navbar-custom">
         <div class="container">
             <div class="brand-wrap">
-                <a href="homepage.php"><img src="assets/img/logo.png" alt="RobustaKu Logo"></a>
+                <a href="homepage.php"><img src="assets/img/logo_robustaku.png" alt="RobustaKu Logo"></a>
             </div>
 
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">

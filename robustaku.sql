@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 22, 2026 at 04:34 AM
+-- Generation Time: Jan 27, 2026 at 02:43 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -93,37 +93,26 @@ CREATE TABLE `matriks` (
 --
 
 INSERT INTO `matriks` (`id_matriks`, `id_varietas`, `id_kriteria`, `id_subkriteria`) VALUES
-(1, 1, 1, 2),
-(2, 1, 1, 2),
-(3, 1, 2, 6),
-(4, 1, 3, 12),
-(5, 1, 4, 18),
-(6, 1, 5, 24),
-(7, 2, 1, 3),
-(8, 2, 2, 6),
-(9, 2, 3, 11),
-(10, 2, 4, 23),
-(11, 2, 5, 22),
-(12, 3, 1, 3),
-(13, 3, 2, 6),
-(14, 3, 3, 13),
-(15, 3, 4, 18),
-(16, 3, 5, 23),
-(17, 4, 1, 4),
-(18, 4, 2, 7),
-(19, 4, 3, 13),
-(20, 4, 4, 19),
-(21, 4, 5, 22),
-(22, 5, 1, 2),
-(23, 5, 2, 6),
-(24, 5, 3, 12),
-(25, 5, 4, 17),
-(26, 5, 5, 24),
 (27, 0, 1, 0),
 (28, 0, 2, 0),
 (29, 0, 3, 0),
 (30, 0, 4, 0),
-(31, 0, 5, 0);
+(31, 0, 5, 0),
+(92, 6, 1, 1),
+(93, 6, 2, 8),
+(94, 6, 3, 13),
+(95, 6, 4, 17),
+(96, 6, 5, 24),
+(97, 7, 1, 1),
+(98, 7, 2, 8),
+(99, 7, 3, 13),
+(100, 7, 4, 17),
+(101, 7, 5, 24),
+(102, 5, 1, 1),
+(103, 5, 2, 6),
+(104, 5, 3, 12),
+(105, 5, 4, 16),
+(106, 5, 5, 21);
 
 -- --------------------------------------------------------
 
@@ -166,9 +155,9 @@ CREATE TABLE `subkriteria` (
 INSERT INTO `subkriteria` (`id_subkriteria`, `id_kriteria`, `nama_subkriteria`, `nilai_subkriteria`) VALUES
 (1, 1, 'Andosol', 5),
 (2, 1, 'Latosol', 4),
-(3, 1, 'Aluvial', 3),
-(4, 1, 'Regosol', 2),
-(5, 1, 'Entisol', 1),
+(3, 1, 'Kambisol', 3),
+(4, 1, 'Aluvial', 2),
+(5, 1, 'Regosol', 1),
 (6, 2, '1.500–2.000 mm/tahun', 5),
 (7, 2, '2.000-2.500 mm/tahun', 4),
 (8, 2, '2.500-3.000 mm/tahun', 3),
@@ -256,13 +245,13 @@ ALTER TABLE `checked`
 -- AUTO_INCREMENT for table `kriteria`
 --
 ALTER TABLE `kriteria`
-  MODIFY `id_kriteria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_kriteria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `matriks`
 --
 ALTER TABLE `matriks`
-  MODIFY `id_matriks` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id_matriks` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=107;
 
 --
 -- AUTO_INCREMENT for table `pengguna`
