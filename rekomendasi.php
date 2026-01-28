@@ -196,13 +196,13 @@ $validasi = isset($_GET['validasi']) ? trim($_GET['validasi']) : "";
 
             <div class="collapse navbar-collapse justify-content-end" id="navMenu">
                 <ul class="navbar-nav align-items-center me-3">
-                    <li class="nav-item"><a class="nav-link" href="homepage.php">Home</a></li>
+                    <li class="nav-item"><a class="nav-link unactive" href="homepage.php">Home</a></li>
                     <li class="nav-item"><a class="nav-link active" href="rekomendasi.php">Rekomendasi</a></li>
-                    <li class="nav-item"><a class="nav-link" href="kriteria.php">Kriteria</a></li>
-                    <li class="nav-item"><a class="nav-link" href="subkriteria.php">Subkriteria</a></li>
-                    <li class="nav-item"><a class="nav-link" href="varietas.php">Varietas</a></li>
-                    <li class="nav-item"><a class="nav-link" href="pengguna.php">Pengguna</a></li>
-                    <li class="nav-item"><a class="nav-link" href="profil.php">Profil</a></li>
+                    <li class="nav-item"><a class="nav-link unactive" href="kriteria.php">Kriteria</a></li>
+                    <li class="nav-item"><a class="nav-link unactive" href="subkriteria.php">Subkriteria</a></li>
+                    <li class="nav-item"><a class="nav-link unactive" href="varietas.php">Varietas</a></li>
+                    <li class="nav-item"><a class="nav-link unactive" href="pengguna.php">Pengguna</a></li>
+                    <li class="nav-item"><a class="nav-link unactive" href="profil.php">Profil</a></li>
                 </ul>
             </div>
         </div>
@@ -266,9 +266,9 @@ $validasi = isset($_GET['validasi']) ? trim($_GET['validasi']) : "";
                             }
                         ?>
                         </div>
-                    <div class="modal-footer">
-                        <button type="submit" name="lihat_rekomendasi" class="btn btn-primary">Lihat Rekomendasi</button>
-                    </div>
+                    <div class="d-grid">
+                            <button name="masuk" class="btn btn-primary">Lihat Rekomendasi</button>
+                        </div>
                         </form>
                     </div>
                 </div>

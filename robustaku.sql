@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 27, 2026 at 02:43 AM
+-- Generation Time: Jan 28, 2026 at 03:13 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -69,8 +69,8 @@ CREATE TABLE `kriteria` (
 --
 
 INSERT INTO `kriteria` (`id_kriteria`, `kode_kriteria`, `nama_kriteria`, `jenis_kriteria`) VALUES
-(1, 'C1', 'Jenis Tanah', 'benefit'),
-(2, 'C2', 'Curah Hujan', 'cost'),
+(1, 'C1', 'Jenis Tanah', 'cost'),
+(2, 'C2', 'Curah Hujan', 'benefit'),
 (3, 'C3', 'Suhu', 'benefit'),
 (4, 'C4', 'Kelembapan Lingkungan', 'benefit'),
 (5, 'C5', 'Ketinggian', 'benefit');
@@ -98,21 +98,66 @@ INSERT INTO `matriks` (`id_matriks`, `id_varietas`, `id_kriteria`, `id_subkriter
 (29, 0, 3, 0),
 (30, 0, 4, 0),
 (31, 0, 5, 0),
-(92, 6, 1, 1),
-(93, 6, 2, 8),
-(94, 6, 3, 13),
-(95, 6, 4, 17),
-(96, 6, 5, 24),
-(97, 7, 1, 1),
-(98, 7, 2, 8),
-(99, 7, 3, 13),
-(100, 7, 4, 17),
-(101, 7, 5, 24),
-(102, 5, 1, 1),
-(103, 5, 2, 6),
-(104, 5, 3, 12),
-(105, 5, 4, 16),
-(106, 5, 5, 21);
+(167, 1, 1, 1),
+(168, 1, 2, 6),
+(169, 1, 3, 11),
+(170, 1, 4, 18),
+(171, 1, 5, 21),
+(177, 2, 1, 4),
+(178, 2, 2, 6),
+(179, 2, 3, 11),
+(180, 2, 4, 16),
+(181, 2, 5, 22),
+(192, 5, 1, 1),
+(193, 5, 2, 6),
+(194, 5, 3, 11),
+(195, 5, 4, 17),
+(196, 5, 5, 21),
+(197, 7, 1, 4),
+(198, 7, 2, 6),
+(199, 7, 3, 11),
+(200, 7, 4, 17),
+(201, 7, 5, 22),
+(212, 12, 1, 4),
+(213, 12, 2, 6),
+(214, 12, 3, 11),
+(215, 12, 4, 18),
+(216, 12, 5, 22),
+(227, 11, 1, 1),
+(228, 11, 2, 7),
+(229, 11, 3, 11),
+(230, 11, 4, 17),
+(231, 11, 5, 21),
+(232, 3, 1, 4),
+(233, 3, 2, 6),
+(234, 3, 3, 12),
+(235, 3, 4, 18),
+(236, 3, 5, 21),
+(237, 4, 1, 5),
+(238, 4, 2, 7),
+(239, 4, 3, 11),
+(240, 4, 4, 17),
+(241, 4, 5, 23),
+(242, 6, 1, 1),
+(243, 6, 2, 6),
+(244, 6, 3, 11),
+(245, 6, 4, 16),
+(246, 6, 5, 21),
+(247, 8, 1, 4),
+(248, 8, 2, 6),
+(249, 8, 3, 11),
+(250, 8, 4, 17),
+(251, 8, 5, 22),
+(252, 9, 1, 1),
+(253, 9, 2, 6),
+(254, 9, 3, 11),
+(255, 9, 4, 17),
+(256, 9, 5, 22),
+(257, 10, 1, 1),
+(258, 10, 2, 7),
+(259, 10, 3, 11),
+(260, 10, 4, 17),
+(261, 10, 5, 22);
 
 -- --------------------------------------------------------
 
@@ -134,6 +179,19 @@ CREATE TABLE `pengguna` (
 
 INSERT INTO `pengguna` (`id_pengguna`, `nama`, `username`, `password`, `level`) VALUES
 (10, 'dinda', 'dinddarac', '$2y$10$MPGB4.aqkDC0loc4sScpu.9nqCYz9y8yuSixR8/1HyZYugI4V5B1.', 'admin');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `peringkat`
+--
+
+CREATE TABLE `peringkat` (
+  `id_peringkat` int(11) NOT NULL,
+  `id_varietas` int(11) NOT NULL,
+  `nilai_peringkat` float NOT NULL,
+  `username` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -163,21 +221,21 @@ INSERT INTO `subkriteria` (`id_subkriteria`, `id_kriteria`, `nama_subkriteria`, 
 (8, 2, '2.500-3.000 mm/tahun', 3),
 (9, 2, '3.000-3.500 mm/tahun', 2),
 (10, 2, '&gt;3.500 mm/tahun', 1),
-(11, 3, '22-23 ', 5),
-(12, 3, '23-24', 4),
-(13, 3, '24-28', 3),
-(14, 3, '28-30', 2),
-(15, 3, '&gt;30', 1),
+(11, 3, '20-24', 5),
+(12, 3, '24-28', 4),
+(13, 3, '28-30', 3),
+(14, 3, '30-33', 2),
+(15, 3, '&gt;33', 1),
 (16, 4, '70-72%', 5),
 (17, 4, '72-75%', 4),
 (18, 4, '75-78%', 3),
 (19, 4, '78-80%', 2),
 (20, 4, '80-85%', 1),
-(21, 5, '800-700 mdpl ', 5),
-(22, 5, '700-600 mdpl', 4),
-(23, 5, '600-500 mdpl', 3),
-(24, 5, '500-300 mdpl', 2),
-(25, 5, '&lt;300 mdpl', 1);
+(21, 5, '300-500 mdpl ', 5),
+(22, 5, '500-600 mdpl', 4),
+(23, 5, '600-700 mdpl', 3),
+(24, 5, '700-800 mdpl', 2),
+(25, 5, '&gt;800 mdpl', 1);
 
 -- --------------------------------------------------------
 
@@ -190,6 +248,24 @@ CREATE TABLE `varietas` (
   `kode_varietas` varchar(20) NOT NULL,
   `nama_varietas` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `varietas`
+--
+
+INSERT INTO `varietas` (`id_varietas`, `kode_varietas`, `nama_varietas`) VALUES
+(1, 'K1', 'BP 409'),
+(2, 'K2', 'SA 237'),
+(3, 'K3', 'BP 228'),
+(4, 'K4', 'BP 358'),
+(5, 'K5', 'BP 42'),
+(6, 'K6', 'SA 203'),
+(7, 'K7', 'BP 936'),
+(8, 'K8', 'Bp 534'),
+(9, 'K9', 'BP 436'),
+(10, 'K10', 'BP 920'),
+(11, 'K11', 'BP 939'),
+(12, 'K12', 'BP 308');
 
 --
 -- Indexes for dumped tables
@@ -218,6 +294,12 @@ ALTER TABLE `matriks`
 --
 ALTER TABLE `pengguna`
   ADD PRIMARY KEY (`id_pengguna`);
+
+--
+-- Indexes for table `peringkat`
+--
+ALTER TABLE `peringkat`
+  ADD PRIMARY KEY (`id_peringkat`);
 
 --
 -- Indexes for table `subkriteria`
@@ -251,13 +333,19 @@ ALTER TABLE `kriteria`
 -- AUTO_INCREMENT for table `matriks`
 --
 ALTER TABLE `matriks`
-  MODIFY `id_matriks` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=107;
+  MODIFY `id_matriks` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=262;
 
 --
 -- AUTO_INCREMENT for table `pengguna`
 --
 ALTER TABLE `pengguna`
   MODIFY `id_pengguna` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT for table `peringkat`
+--
+ALTER TABLE `peringkat`
+  MODIFY `id_peringkat` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `subkriteria`
@@ -269,7 +357,7 @@ ALTER TABLE `subkriteria`
 -- AUTO_INCREMENT for table `varietas`
 --
 ALTER TABLE `varietas`
-  MODIFY `id_varietas` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_varietas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
