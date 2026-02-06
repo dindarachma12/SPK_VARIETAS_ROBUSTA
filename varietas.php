@@ -278,10 +278,12 @@ $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
                 <ul class="navbar-nav align-items-center me-3">
                     <li class="nav-item"><a class="nav-link unactive" href="homepage.php">Home</a></li>
                     <li class="nav-item"><a class="nav-link unactive" href="rekomendasi.php">Rekomendasi</a></li>
+                    <?php if ($level == 'admin'): ?>
                     <li class="nav-item"><a class="nav-link unactive" href="kriteria.php">Kriteria</a></li>
                     <li class="nav-item"><a class="nav-link unactive" href="subkriteria.php">Subkriteria</a></li>
                     <li class="nav-item"><a class="nav-link active" href="varietas.php">Varietas</a></li>
                     <li class="nav-item"><a class="nav-link unactive" href="pengguna.php">Pengguna</a></li>
+                    <?php endif; ?>
                     <li class="nav-item"><a class="nav-link unactive" href="profil.php">Profil</a></li>
                 </ul>
             </div>

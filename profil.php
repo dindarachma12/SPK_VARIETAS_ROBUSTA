@@ -10,6 +10,7 @@ if (!isset($_SESSION['nama']) || !isset($_SESSION['level'])) {
 $nama_session = $_SESSION['nama'];
 $id = $_SESSION['id'];
 
+$level = $_SESSION['level'];
 $validasi = isset($_GET['validasi']) ? trim($_GET['validasi']) : "";
 
 /* Ambil data user */
@@ -238,10 +239,14 @@ if (isset($_POST['edit_profil'])) {
                 <ul class="navbar-nav align-items-center me-3">
                     <li class="nav-item"><a class="nav-link unactive" href="homepage.php">Home</a></li>
                     <li class="nav-item"><a class="nav-link unactive" href="rekomendasi.php">Rekomendasi</a></li>
+                    <?php if ($level == 'admin'): ?>
                     <li class="nav-item"><a class="nav-link unactive" href="kriteria.php">Kriteria</a></li>
                     <li class="nav-item"><a class="nav-link unactive" href="subkriteria.php">Subkriteria</a></li>
+                    <?php endif; ?>
                     <li class="nav-item"><a class="nav-link unactive" href="varietas.php">Varietas</a></li>
+                    <?php if ($level == 'admin'): ?>
                     <li class="nav-item"><a class="nav-link unactive" href="pengguna.php">Pengguna</a></li>
+                    <?php endif; ?>
                     <li class="nav-item"><a class="nav-link active" href="profil.php">Profil</a></li>
                 </ul>
             </div>

@@ -13,6 +13,9 @@ if (!isset($_GET['validasi'])) {
 } else {
     $validasi = $_GET['validasi'];
 }
+
+$level = $_SESSION['level'];
+$validasi = isset($_GET['validasi']) ? trim($_GET['validasi']) : "";
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -255,10 +258,12 @@ if (!isset($_GET['validasi'])) {
                 <ul class="navbar-nav align-items-center me-3">
                     <li class="nav-item"><a class="nav-link unactive" href="homepage.php">Home</a></li>
                     <li class="nav-item"><a class="nav-link active" href="rekomendasi.php">Rekomendasi</a></li>
+                    <?php if ($level == 'admin'): ?>
                     <li class="nav-item"><a class="nav-link unactive" href="kriteria.php">Kriteria</a></li>
                     <li class="nav-item"><a class="nav-link unactive" href="subkriteria.php">Subkriteria</a></li>
                     <li class="nav-item"><a class="nav-link unactive" href="varietas.php">Varietas</a></li>
                     <li class="nav-item"><a class="nav-link unactive" href="pengguna.php">Pengguna</a></li>
+                    <?php endif; ?>
                     <li class="nav-item"><a class="nav-link unactive" href="profil.php">Profil</a></li>
                 </ul>
             </div>
@@ -322,9 +327,6 @@ if (!isset($_GET['validasi'])) {
                     ?>
                 </tbody>
             </table>
-        </div>
-        <div class="text-center mb-3">
-                <a href="print.php?validasi=sukses" class="btn btn-primary">Cetak hasil</a>
         </div>
     </div>
 

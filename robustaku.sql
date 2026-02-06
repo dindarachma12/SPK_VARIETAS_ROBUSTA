@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 28, 2026 at 03:13 PM
+-- Generation Time: Feb 04, 2026 at 06:49 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -49,7 +49,19 @@ INSERT INTO `checked` (`id_checked`, `id_varietas`, `username`) VALUES
 (9, 9, 'dinda'),
 (10, 10, 'dinda'),
 (11, 11, 'dinda'),
-(12, 12, 'dinda');
+(12, 12, 'dinda'),
+(64, 1, 'dinddarac'),
+(65, 2, 'dinddarac'),
+(66, 3, 'dinddarac'),
+(67, 4, 'dinddarac'),
+(68, 5, 'dinddarac'),
+(69, 6, 'dinddarac'),
+(70, 7, 'dinddarac'),
+(71, 8, 'dinddarac'),
+(72, 9, 'dinddarac'),
+(73, 10, 'dinddarac'),
+(74, 11, 'dinddarac'),
+(75, 12, 'dinddarac');
 
 -- --------------------------------------------------------
 
@@ -69,11 +81,11 @@ CREATE TABLE `kriteria` (
 --
 
 INSERT INTO `kriteria` (`id_kriteria`, `kode_kriteria`, `nama_kriteria`, `jenis_kriteria`) VALUES
-(1, 'C1', 'Jenis Tanah', 'cost'),
-(2, 'C2', 'Curah Hujan', 'benefit'),
-(3, 'C3', 'Suhu', 'benefit'),
-(4, 'C4', 'Kelembapan Lingkungan', 'benefit'),
-(5, 'C5', 'Ketinggian', 'benefit');
+(1, 'C1', 'Jenis Tanah', 'benefit'),
+(2, 'C2', 'Curah Hujan', 'cost'),
+(3, 'C3', 'Suhu', 'cost'),
+(4, 'C4', 'Kelembapan Lingkungan', 'cost'),
+(5, 'C5', 'Ketinggian', 'cost');
 
 -- --------------------------------------------------------
 
@@ -108,11 +120,6 @@ INSERT INTO `matriks` (`id_matriks`, `id_varietas`, `id_kriteria`, `id_subkriter
 (179, 2, 3, 11),
 (180, 2, 4, 16),
 (181, 2, 5, 22),
-(192, 5, 1, 1),
-(193, 5, 2, 6),
-(194, 5, 3, 11),
-(195, 5, 4, 17),
-(196, 5, 5, 21),
 (197, 7, 1, 4),
 (198, 7, 2, 6),
 (199, 7, 3, 11),
@@ -143,11 +150,6 @@ INSERT INTO `matriks` (`id_matriks`, `id_varietas`, `id_kriteria`, `id_subkriter
 (244, 6, 3, 11),
 (245, 6, 4, 16),
 (246, 6, 5, 21),
-(247, 8, 1, 4),
-(248, 8, 2, 6),
-(249, 8, 3, 11),
-(250, 8, 4, 17),
-(251, 8, 5, 22),
 (252, 9, 1, 1),
 (253, 9, 2, 6),
 (254, 9, 3, 11),
@@ -157,7 +159,17 @@ INSERT INTO `matriks` (`id_matriks`, `id_varietas`, `id_kriteria`, `id_subkriter
 (258, 10, 2, 7),
 (259, 10, 3, 11),
 (260, 10, 4, 17),
-(261, 10, 5, 22);
+(261, 10, 5, 22),
+(267, 5, 1, 2),
+(268, 5, 2, 6),
+(269, 5, 3, 11),
+(270, 5, 4, 17),
+(271, 5, 5, 22),
+(272, 8, 1, 4),
+(273, 8, 2, 6),
+(274, 8, 3, 12),
+(275, 8, 4, 17),
+(276, 8, 5, 22);
 
 -- --------------------------------------------------------
 
@@ -192,6 +204,24 @@ CREATE TABLE `peringkat` (
   `nilai_peringkat` float NOT NULL,
   `username` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `peringkat`
+--
+
+INSERT INTO `peringkat` (`id_peringkat`, `id_varietas`, `nilai_peringkat`, `username`) VALUES
+(37, 1, 0.645487, 'dinddarac'),
+(38, 2, 0.619294, 'dinddarac'),
+(39, 3, 0.466349, 'dinddarac'),
+(40, 4, 0.341378, 'dinddarac'),
+(41, 5, 0.716177, 'dinddarac'),
+(42, 6, 1, 'dinddarac'),
+(43, 7, 0.566278, 'dinddarac'),
+(44, 8, 0.489954, 'dinddarac'),
+(45, 9, 0.7601, 'dinddarac'),
+(46, 10, 0.651594, 'dinddarac'),
+(47, 11, 0.704117, 'dinddarac'),
+(48, 12, 0.460572, 'dinddarac');
 
 -- --------------------------------------------------------
 
@@ -261,7 +291,7 @@ INSERT INTO `varietas` (`id_varietas`, `kode_varietas`, `nama_varietas`) VALUES
 (5, 'K5', 'BP 42'),
 (6, 'K6', 'SA 203'),
 (7, 'K7', 'BP 936'),
-(8, 'K8', 'Bp 534'),
+(8, 'K8', 'BP 534'),
 (9, 'K9', 'BP 436'),
 (10, 'K10', 'BP 920'),
 (11, 'K11', 'BP 939'),
@@ -321,7 +351,7 @@ ALTER TABLE `varietas`
 -- AUTO_INCREMENT for table `checked`
 --
 ALTER TABLE `checked`
-  MODIFY `id_checked` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id_checked` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 
 --
 -- AUTO_INCREMENT for table `kriteria`
@@ -333,7 +363,7 @@ ALTER TABLE `kriteria`
 -- AUTO_INCREMENT for table `matriks`
 --
 ALTER TABLE `matriks`
-  MODIFY `id_matriks` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=262;
+  MODIFY `id_matriks` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=277;
 
 --
 -- AUTO_INCREMENT for table `pengguna`
@@ -345,7 +375,7 @@ ALTER TABLE `pengguna`
 -- AUTO_INCREMENT for table `peringkat`
 --
 ALTER TABLE `peringkat`
-  MODIFY `id_peringkat` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_peringkat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT for table `subkriteria`
