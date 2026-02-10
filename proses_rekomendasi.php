@@ -142,15 +142,35 @@ foreach ($varietas_list as $id_var) {
 // ========================================================================
 // METODE CRITIC (Pembobotan Kriteria)
 // ========================================================================
+$matriks_critic = [];
 
-$m = count($matriks); // Jumlah alternatif/varietas
-$n = count($matriks[0]); // Jumlah kriteria
+foreach ($varietas_list as $id_var) {
+    $row = [];
+    foreach ($kriteria_data as $krit) {
+        $id_krit = $krit['id_kriteria'];
+
+        $q = mysqli_query($koneksi, "
+            SELECT s.nilai_subkriteria
+            FROM matriks m
+            JOIN subkriteria s ON m.id_subkriteria = s.id_subkriteria
+            WHERE m.id_varietas = '$id_var'
+              AND m.id_kriteria = '$id_krit'
+        ");
+
+        $d = mysqli_fetch_array($q);
+        $row[] = floatval($d['nilai_subkriteria']);
+    }
+    $matriks_critic[] = $row;
+}
+
+$m = count($matriks_critic); // Jumlah alternatif/varietas
+$n = count($matriks_critic[0]); // Jumlah kriteria
 
 // Langkah 1: Normalisasi untuk CRITIC (Min-Max Normalization)
 $norm_critic = [];
 
 for ($j = 0; $j < $n; $j++) {
-    $col_values = array_column($matriks, $j);
+    $col_values = array_column($matriks_critic, $j);
     $min_val = min($col_values);
     $max_val = max($col_values);
     $range = $max_val - $min_val;
@@ -163,9 +183,9 @@ for ($j = 0; $j < $n; $j++) {
             $norm_critic[$i][$j] = 1.0; // Jika semua nilai sama, beri nilai 1
         } else {
             if ($jenis == 'benefit') {
-                $norm_critic[$i][$j] = ($matriks[$i][$j] - $min_val) / $range;
+                $norm_critic[$i][$j] = ($matriks_critic[$i][$j] - $min_val) / $range;
             } else { // cost
-                $norm_critic[$i][$j] = ($max_val - $matriks[$i][$j]) / $range;
+                $norm_critic[$i][$j] = ($max_val - $matriks_critic[$i][$j]) / $range;
             }
         }
     }
@@ -306,6 +326,52 @@ for ($i = 0; $i < $m; $i++) {
         $scores[$i] = $D_minus[$i] / $denom;
     }
 }
+
+// Ambil nama varietas untuk ditampilkan
+$varietas_names = [];
+foreach ($varietas_ids as $id_var) {
+    $q = mysqli_query($koneksi, "SELECT nama_varietas FROM varietas WHERE id_varietas = '$id_var'");
+    if ($row = mysqli_fetch_array($q)) {
+        $varietas_names[$id_var] = $row['nama_varietas'];
+    }
+}
+
+// Ambil nama kriteria
+$kriteria_names = [];
+foreach ($kriteria_data as $krit) {
+    $kriteria_names[$krit['id_kriteria']] = $krit['nama_kriteria'];
+}
+
+// Simpan hasil perhitungan ke session
+$_SESSION['hasil_perhitungan'] = [
+    // Data Input
+    'kondisi_lahan' => $kondisi_lahan,
+    'varietas_list' => $varietas_list,
+    'varietas_ids' => $varietas_ids,
+    'varietas_names' => $varietas_names,
+    'kriteria_data' => $kriteria_data,
+    'kriteria_names' => $kriteria_names,
+    
+    // Matriks Keputusan
+    'matriks_keputusan' => $matriks,
+    
+    // CRITIC
+    'matriks_critic' => $matriks_critic,
+    'norm_critic' => $norm_critic,
+    'std_dev' => $std_dev,
+    'corr_matrix' => $corr_matrix,
+    'Cj' => $Cj,
+    'weights' => $weights,
+    
+    // TOPSIS
+    'R' => $R,
+    'Y' => $Y,
+    'y_plus' => $y_plus,
+    'y_minus' => $y_minus,
+    'D_plus' => $D_plus,
+    'D_minus' => $D_minus,
+    'scores' => $scores
+];
 
 // ========================================================================
 // SIMPAN HASIL KE DATABASE

@@ -80,9 +80,7 @@ if (isset($_POST['edit_profil'])) {
                     <?php if ($level == 'admin'): ?>
                     <li class="nav-item"><a class="nav-link unactive" href="kriteria.php">Kriteria</a></li>
                     <li class="nav-item"><a class="nav-link unactive" href="subkriteria.php">Subkriteria</a></li>
-                    <?php endif; ?>
                     <li class="nav-item"><a class="nav-link unactive" href="varietas.php">Varietas</a></li>
-                    <?php if ($level == 'admin'): ?>
                     <li class="nav-item"><a class="nav-link unactive" href="pengguna.php">Pengguna</a></li>
                     <?php endif; ?>
                     <li class="nav-item"><a class="nav-link active" href="profil.php">Profil</a></li>

@@ -117,6 +117,15 @@ $validasi = isset($_GET['validasi']) ? trim($_GET['validasi']) : "";
                     ?>
                 </tbody>
             </table>
+
+            <?php if ($level == 'admin'): ?>
+            <div class="mt-4 text-center">
+                <a href="detail_rekomendasi.php" class="btn btn-primary">
+                    Lihat Detail Perhitungan
+                </a>
+            </div>
+            <?php endif; ?>
+
         </div>
     </div>
 
