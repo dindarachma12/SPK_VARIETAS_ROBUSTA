@@ -95,7 +95,7 @@ while ($k = mysqli_fetch_array($query_kriteria)) {
 }
 
 // ========================================================================
-// BUAT MATRIKS KEPUTUSAN (NILAI ASLI VARIETAS - TANPA SELISIH)
+// BUAT MATRIKS KEPUTUSAN
 // ========================================================================
 $matriks = [];
 $varietas_ids = [];
@@ -105,8 +105,6 @@ foreach ($varietas_list as $id_var) {
     
     foreach ($kriteria_data as $krit) {
         $id_krit = $krit['id_kriteria'];
-        
-        // Ambil nilai kebutuhan varietas LANGSUNG (TANPA HITUNG SELISIH)
         $query_kebutuhan = mysqli_query($koneksi, "
             SELECT s.nilai_subkriteria 
             FROM matriks m 
@@ -116,7 +114,7 @@ foreach ($varietas_list as $id_var) {
         
         if ($data_kebutuhan = mysqli_fetch_array($query_kebutuhan)) {
             $kebutuhan_varietas = floatval($data_kebutuhan['nilai_subkriteria']);
-            $row_data[] = $kebutuhan_varietas; // ← LANGSUNG PAKAI NILAI ASLI
+            $row_data[] = $kebutuhan_varietas;
         } else {
             $row_data[] = 1;
         }
