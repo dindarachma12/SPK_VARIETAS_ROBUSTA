@@ -12,20 +12,22 @@ if (!isset($_POST['masuk'])) {
     exit;
 }
 
-// Ambil data dari form (KONDISI LAHAN PETANI)
+// ========================================================================
+// AMBIL DATA DARI FORM
+// ========================================================================
 $username = $_SESSION['username'];
 $kriteria_ids = isset($_POST['kriteria']) ? $_POST['kriteria'] : [];
 $subkriteria_ids = isset($_POST['subkriteria']) ? $_POST['subkriteria'] : [];
 
-// Validasi: Cek apakah semua varietas sudah memiliki data lengkap
+// Validasi: Cek apakah semua kriteria sudah diisi
 $jumlah_kriteria = mysqli_num_rows(mysqli_query($koneksi, "SELECT * FROM kriteria"));
 
-// Validasi input dari form
 if (empty($subkriteria_ids) || count($subkriteria_ids) != $jumlah_kriteria) {
     header("Location: rekomendasi.php?validasi=error");
     exit;
 }
 
+// Validasi: Cek apakah semua varietas sudah memiliki data lengkap
 $query_varietas = mysqli_query($koneksi, "SELECT * FROM varietas");
 $cek = 0;
 while ($baris = mysqli_fetch_array($query_varietas)) {
@@ -48,10 +50,9 @@ mysqli_query($koneksi, "DELETE FROM peringkat WHERE username = '$username'");
 // ========================================================================
 // AMBIL KONDISI LAHAN PETANI (INPUT USER)
 // ========================================================================
-$kondisi_lahan = []; // Array untuk menyimpan nilai kondisi lahan petani
+$kondisi_lahan = [];
 
 foreach ($subkriteria_ids as $id_krit => $id_subkrit) {
-    // PERBAIKAN: Gunakan variabel yang benar
     $query_nilai_lahan = mysqli_query($koneksi, "
         SELECT nilai_subkriteria 
         FROM subkriteria 
@@ -94,11 +95,8 @@ while ($k = mysqli_fetch_array($query_kriteria)) {
 }
 
 // ========================================================================
-// BUAT MATRIKS KEPUTUSAN BERDASARKAN KESESUAIAN DENGAN KONDISI LAHAN
+// BUAT MATRIKS KEPUTUSAN (NILAI ASLI VARIETAS - TANPA SELISIH)
 // ========================================================================
-// KONSEP BARU: Hitung kesesuaian berdasarkan kedekatan nilai varietas dengan kondisi lahan petani
-// Semakin dekat nilai kebutuhan varietas dengan kondisi lahan, semakin tinggi skornya
-
 $matriks = [];
 $varietas_ids = [];
 
@@ -108,7 +106,7 @@ foreach ($varietas_list as $id_var) {
     foreach ($kriteria_data as $krit) {
         $id_krit = $krit['id_kriteria'];
         
-        // Ambil kebutuhan ideal varietas untuk kriteria ini
+        // Ambil nilai kebutuhan varietas LANGSUNG (TANPA HITUNG SELISIH)
         $query_kebutuhan = mysqli_query($koneksi, "
             SELECT s.nilai_subkriteria 
             FROM matriks m 
@@ -118,20 +116,9 @@ foreach ($varietas_list as $id_var) {
         
         if ($data_kebutuhan = mysqli_fetch_array($query_kebutuhan)) {
             $kebutuhan_varietas = floatval($data_kebutuhan['nilai_subkriteria']);
-            $kondisi_petani = isset($kondisi_lahan[$id_krit]) ? $kondisi_lahan[$id_krit] : 0;
-            
-            // Hitung selisih absolut
-            $selisih = abs($kebutuhan_varietas - $kondisi_petani);
-            
-            // Konversi ke nilai kesesuaian (0-5)
-            // Selisih 0 = nilai 5 (sangat cocok)
-            // Selisih 4 = nilai 1 (tidak cocok)
-            // Formula: nilai = 5 - selisih
-            $nilai_kesesuaian = max(1, 5 - $selisih);
-            
-            $row_data[] = $nilai_kesesuaian;
+            $row_data[] = $kebutuhan_varietas; // ← LANGSUNG PAKAI NILAI ASLI
         } else {
-            $row_data[] = 1; // Nilai default terendah jika data tidak ada
+            $row_data[] = 1;
         }
     }
     
@@ -142,31 +129,12 @@ foreach ($varietas_list as $id_var) {
 // ========================================================================
 // METODE CRITIC (Pembobotan Kriteria)
 // ========================================================================
-$matriks_critic = [];
+$matriks_critic = $matriks; // Sama dengan matriks keputusan
 
-foreach ($varietas_list as $id_var) {
-    $row = [];
-    foreach ($kriteria_data as $krit) {
-        $id_krit = $krit['id_kriteria'];
+$m = count($matriks_critic);
+$n = count($matriks_critic[0]);
 
-        $q = mysqli_query($koneksi, "
-            SELECT s.nilai_subkriteria
-            FROM matriks m
-            JOIN subkriteria s ON m.id_subkriteria = s.id_subkriteria
-            WHERE m.id_varietas = '$id_var'
-              AND m.id_kriteria = '$id_krit'
-        ");
-
-        $d = mysqli_fetch_array($q);
-        $row[] = floatval($d['nilai_subkriteria']);
-    }
-    $matriks_critic[] = $row;
-}
-
-$m = count($matriks_critic); // Jumlah alternatif/varietas
-$n = count($matriks_critic[0]); // Jumlah kriteria
-
-// Langkah 1: Normalisasi untuk CRITIC (Min-Max Normalization)
+// Langkah 1: Normalisasi CRITIC (Min-Max) - PAKAI BENEFIT/COST
 $norm_critic = [];
 
 for ($j = 0; $j < $n; $j++) {
@@ -180,7 +148,7 @@ for ($j = 0; $j < $n; $j++) {
     
     for ($i = 0; $i < $m; $i++) {
         if ($range == 0) {
-            $norm_critic[$i][$j] = 1.0; // Jika semua nilai sama, beri nilai 1
+            $norm_critic[$i][$j] = 1.0;
         } else {
             if ($jenis == 'benefit') {
                 $norm_critic[$i][$j] = ($matriks_critic[$i][$j] - $min_val) / $range;
@@ -265,16 +233,18 @@ for ($j = 0; $j < $n; $j++) {
 // METODE TOPSIS (Perangkingan Alternatif)
 // ========================================================================
 
-// Langkah 1: Normalisasi TOPSIS
+// Langkah 1: Normalisasi TOPSIS (Vector Normalization - TANPA Benefit/Cost)
 $R = [];
+$denominators = []; // SIMPAN denominator untuk input petani
+
 for ($j = 0; $j < $n; $j++) {
     $col_values = array_column($matriks, $j);
-    // BENEFIT: Normalisasi biasa
     $sum_sq = 0;
     foreach ($col_values as $val) {
         $sum_sq += $val * $val;
     }
     $denom = sqrt($sum_sq);
+    $denominators[$j] = $denom; // ← SIMPAN untuk input petani
         
     for ($i = 0; $i < $m; $i++) {
         if ($denom == 0) {
@@ -285,7 +255,7 @@ for ($j = 0; $j < $n; $j++) {
     }
 }
 
-// Langkah 2: Matriks Terbobot
+// Langkah 2: Matriks Terbobot (TANPA Benefit/Cost)
 $Y = [];
 for ($i = 0; $i < $m; $i++) {
     for ($j = 0; $j < $n; $j++) {
@@ -293,16 +263,53 @@ for ($i = 0; $i < $m; $i++) {
     }
 }
 
-// Langkah 3: Solusi Ideal (Semua kriteria adalah BENEFIT karena sudah dikonversi ke nilai kesesuaian)
-$y_plus = [];
+// ========================================================================
+// NORMALISASI INPUT PETANI (TANPA Benefit/Cost)
+// ========================================================================
+$r_petani = [];
+$y_petani = [];
+
+for ($j = 0; $j < $n; $j++) {
+    $id_krit = $kriteria_data[$j]['id_kriteria'];
+    $nilai_petani = isset($kondisi_lahan[$id_krit]) ? $kondisi_lahan[$id_krit] : 0;
+    
+    // Pakai denominator yang SAMA dengan varietas
+    $denom = $denominators[$j];
+    
+    if ($denom == 0) {
+        $r_petani[$j] = 0;
+    } else {
+        $r_petani[$j] = $nilai_petani / $denom;
+    }
+    
+    // Kalikan dengan bobot CRITIC
+    $y_petani[$j] = $r_petani[$j] * $weights[$j];
+}
+
+// ========================================================================
+// Langkah 3: Solusi Ideal
+// ========================================================================
+
+// A⁺ = Input petani terbobot (TANPA Benefit/Cost)
+$y_plus = $y_petani;
+
+// A⁻ = Nilai ekstrem berdasarkan benefit/cost (PAKAI Benefit/Cost)
 $y_minus = [];
 for ($j = 0; $j < $n; $j++) {
     $col = array_column($Y, $j);
-    $y_plus[$j] = max($col);   // Benefit: max = ideal positif
-    $y_minus[$j] = min($col);  // Benefit: min = ideal negatif
+    $id_krit = $kriteria_data[$j]['id_kriteria'];
+    $jenis = $kriteria_types[$id_krit];
+    
+    if ($jenis == 'benefit') {
+        // Benefit: nilai tinggi = baik → nilai rendah = terburuk → ambil MIN
+        $y_minus[$j] = min($col);
+    } else { // cost
+        // Cost: nilai rendah = baik → nilai tinggi = terburuk → ambil MAX
+        $y_minus[$j] = max($col);
+    }
 }
 
-// Langkah 4: Hitung Separasi
+// Langkah 4: Hitung Separasi (TANPA Benefit/Cost)
 $D_plus = [];
 $D_minus = [];
 for ($i = 0; $i < $m; $i++) {
@@ -316,7 +323,7 @@ for ($i = 0; $i < $m; $i++) {
     $D_minus[$i] = sqrt($sum_minus);
 }
 
-// Langkah 5: Hitung Nilai Preferensi
+// Langkah 5: Hitung Nilai Preferensi (TANPA Benefit/Cost)
 $scores = [];
 for ($i = 0; $i < $m; $i++) {
     $denom = $D_plus[$i] + $D_minus[$i];
@@ -327,7 +334,9 @@ for ($i = 0; $i < $m; $i++) {
     }
 }
 
-// Ambil nama varietas untuk ditampilkan
+// ========================================================================
+// AMBIL NAMA VARIETAS DAN KRITERIA
+// ========================================================================
 $varietas_names = [];
 foreach ($varietas_ids as $id_var) {
     $q = mysqli_query($koneksi, "SELECT nama_varietas FROM varietas WHERE id_varietas = '$id_var'");
@@ -336,13 +345,14 @@ foreach ($varietas_ids as $id_var) {
     }
 }
 
-// Ambil nama kriteria
 $kriteria_names = [];
 foreach ($kriteria_data as $krit) {
     $kriteria_names[$krit['id_kriteria']] = $krit['nama_kriteria'];
 }
 
-// Simpan hasil perhitungan ke session
+// ========================================================================
+// SIMPAN HASIL PERHITUNGAN KE SESSION
+// ========================================================================
 $_SESSION['hasil_perhitungan'] = [
     // Data Input
     'kondisi_lahan' => $kondisi_lahan,
@@ -352,7 +362,7 @@ $_SESSION['hasil_perhitungan'] = [
     'kriteria_data' => $kriteria_data,
     'kriteria_names' => $kriteria_names,
     
-    // Matriks Keputusan
+    // Matriks Keputusan (nilai asli varietas)
     'matriks_keputusan' => $matriks,
     
     // CRITIC
@@ -366,6 +376,9 @@ $_SESSION['hasil_perhitungan'] = [
     // TOPSIS
     'R' => $R,
     'Y' => $Y,
+    'denominators' => $denominators,
+    'r_petani' => $r_petani,
+    'y_petani' => $y_petani,
     'y_plus' => $y_plus,
     'y_minus' => $y_minus,
     'D_plus' => $D_plus,
@@ -376,15 +389,11 @@ $_SESSION['hasil_perhitungan'] = [
 // ========================================================================
 // SIMPAN HASIL KE DATABASE
 // ========================================================================
-
-// Cek apakah sudah ada data peringkat untuk user ini
 $cek_peringkat = mysqli_query($koneksi, "SELECT * FROM peringkat WHERE username = '$username'");
 if (mysqli_num_rows($cek_peringkat) > 0) {
-    // Hapus data lama
     mysqli_query($koneksi, "DELETE FROM peringkat WHERE username = '$username'");
 }
 
-// Insert data baru
 $success = true;
 for ($i = 0; $i < $m; $i++) {
     $id_var = $varietas_ids[$i];
@@ -401,7 +410,6 @@ for ($i = 0; $i < $m; $i++) {
     }
 }
 
-// Redirect ke halaman hasil
 if ($success) {
     header("Location: hasil_rekomendasi.php?validasi=sukses-tambah");
 } else {

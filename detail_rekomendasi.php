@@ -103,8 +103,8 @@ $data = $_SESSION['hasil_perhitungan'];
 
         <!-- 2. MATRIKS KEPUTUSAN -->
         <div class="section">
-            <h2>Matriks Keputusan (Nilai Kesesuaian)</h2>
-            <p class="info-text">Berdasarkan kedekatan nilai kebutuhan varietas dengan kondisi lahan petani</p>
+            <h2>Matriks Keputusan</h2>
+            <p class="info-text">Nilai kebutuhan optimal setiap varietas untuk masing-masing kriteria</p>
             <div class="table-container">
                 <table>
                     <thead>
