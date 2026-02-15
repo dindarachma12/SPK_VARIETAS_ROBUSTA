@@ -85,7 +85,7 @@ $validasi = isset($_GET['validasi']) ? trim($_GET['validasi']) : "";
 
         <!-- Tabel Hasil Rekomendasi -->
         <p class="description-text">
-            Berdasarkan hasil perhitungan Sistem Pendukung Keputusan dengan menggunakan metode TOPSIS dan CRITIC, didapatkan bahwa "<?php echo $data_rekomendasi['nama_varietas']; ?>" adalah varietas kopi robusta yang paling direkomendasikan untuk lahan Anda
+            Berdasarkan hasil perhitungan Sistem Pendukung Keputusan dengan menggunakan metode TOPSIS dan CRITIC, didapatkan bahwa "<strong><?php echo $data_rekomendasi['nama_varietas']; ?></strong>" adalah varietas kopi robusta yang paling direkomendasikan untuk lahan Anda.
         </p>
         <?php
         $query = mysqli_query($koneksi, "SELECT peringkat.*, varietas.kode_varietas, varietas.nama_varietas FROM peringkat JOIN varietas ON peringkat.id_varietas = varietas.id_varietas WHERE peringkat.username = '$nama' ORDER BY peringkat.nilai_peringkat DESC");
@@ -121,7 +121,7 @@ $validasi = isset($_GET['validasi']) ? trim($_GET['validasi']) : "";
             <?php if ($level == 'admin'): ?>
             <div class="mt-4 text-center">
                 <a href="detail_rekomendasi.php" class="btn btn-primary">
-                    Lihat Detail Perhitungan
+                    Lihat Detail Rekomendasi
                 </a>
             </div>
             <?php endif; ?>

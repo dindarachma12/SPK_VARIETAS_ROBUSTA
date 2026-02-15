@@ -71,11 +71,13 @@ $data = $_SESSION['hasil_perhitungan'];
 
         <!-- Tabel Hasil Rekomendasi -->
         <p class="description-text">
-            Berdasarkan hasil perhitungan Sistem Pendukung Keputusan dengan menggunakan metode TOPSIS dan CRITIC, didapatkan bahwa "<?php echo $data_rekomendasi['nama_varietas']; ?>" adalah varietas kopi robusta yang paling direkomendasikan untuk lahan Anda
+            Berdasarkan hasil perhitungan Sistem Pendukung Keputusan dengan menggunakan metode CRITIC dan TOPSIS, didapatkan bahwa "<strong><?php echo $data_rekomendasi['nama_varietas']; ?></strong>" adalah varietas kopi robusta yang paling direkomendasikan untuk lahan Anda.
         </p>
+
         <!-- 1. KONDISI LAHAN PETANI -->
         <div class="section">
-            <h2>Kondisi Lahan Petani (Input)</h2>
+            <h2>1. Kondisi Lahan Petani</h2>
+            <p class="info-text">Data kondisi lahan yang Anda inputkan sebagai dasar rekomendasi</p>
             <div class="table-container">
                 <table>
                     <thead>
@@ -103,7 +105,7 @@ $data = $_SESSION['hasil_perhitungan'];
 
         <!-- 2. MATRIKS KEPUTUSAN -->
         <div class="section">
-            <h2>Matriks Keputusan</h2>
+            <h2>2. Matriks Keputusan</h2>
             <p class="info-text">Nilai kebutuhan optimal setiap varietas untuk masing-masing kriteria</p>
             <div class="table-container">
                 <table>
@@ -112,7 +114,7 @@ $data = $_SESSION['hasil_perhitungan'];
                             <th>No</th>
                             <th>Varietas</th>
                             <?php foreach ($data['kriteria_data'] as $krit): ?>
-                                <th><?= $krit['nama_kriteria'] ?></th>
+                                <th><?= $krit['nama_kriteria'] ?><br></th>
                             <?php endforeach; ?>
                         </tr>
                     </thead>
@@ -127,7 +129,7 @@ $data = $_SESSION['hasil_perhitungan'];
                                 <td><?= $no++ ?></td>
                                 <td><strong><?= $nama_var ?></strong></td>
                                 <?php foreach ($row as $val): ?>
-                                    <td><?= number_format($val, 4) ?></td>
+                                    <td><?= number_format($val, 0) ?></td>
                                 <?php endforeach; ?>
                             </tr>
                         <?php endforeach; ?>
@@ -138,42 +140,10 @@ $data = $_SESSION['hasil_perhitungan'];
 
         <!-- 3. METODE CRITIC -->
         <div class="section">
-            <h2>Metode CRITIC (Pembobotan Kriteria)</h2>
-            
-            <!-- 3.1. Matriks Awal CRITIC -->
-            <h3>Matriks Data Awal</h3>
-            <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Varietas</th>
-                            <?php foreach ($data['kriteria_data'] as $krit): ?>
-                                <th><?= $krit['nama_kriteria'] ?></th>
-                            <?php endforeach; ?>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php 
-                        $no = 1;
-                        foreach ($data['matriks_critic'] as $i => $row): 
-                            $id_var = $data['varietas_ids'][$i];
-                            $nama_var = isset($data['varietas_names'][$id_var]) ? $data['varietas_names'][$id_var] : "Varietas $id_var";
-                        ?>
-                            <tr>
-                                <td><?= $no++ ?></td>
-                                <td><strong><?= $nama_var ?></strong></td>
-                                <?php foreach ($row as $val): ?>
-                                    <td><?= number_format($val, 4) ?></td>
-                                <?php endforeach; ?>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- 3.2. Normalisasi CRITIC -->
-            <h3>Normalisasi Matriks CRITIC</h3>
+            <h2>3. Metode CRITIC</h2>
+           
+            <!-- 3.1. Normalisasi CRITIC -->
+            <h3>Normalisasi Matriks Keputusan</h3>
             <div class="table-container">
                 <table>
                     <thead>
@@ -204,15 +174,15 @@ $data = $_SESSION['hasil_perhitungan'];
                 </table>
             </div>
 
-            <!-- 3.3. Deviasi Standar -->
-            <h3>Deviasi Standar</h3>
+            <!-- 3.2. Deviasi Standar -->
+            <h3>Standar Deviasi</h3>
             <div class="table-container">
                 <table>
                     <thead>
                         <tr>
                             <th>No</th>
                             <th>Kriteria</th>
-                            <th>Deviasi Standar</th>
+                            <th>Standar Deviasi (σ)</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -230,7 +200,7 @@ $data = $_SESSION['hasil_perhitungan'];
                 </table>
             </div>
 
-            <!-- 3.4. Matriks Korelasi -->
+            <!-- 3.3. Matriks Korelasi -->
             <h3>Matriks Korelasi</h3>
             <div class="table-container">
                 <table>
@@ -255,20 +225,21 @@ $data = $_SESSION['hasil_perhitungan'];
                 </table>
             </div>
 
-            <!-- 3.5. Informasi Kriteria (Cj) -->
-            <h3>Nilai Informasi Kriteria (Cj)</h3>
+            <!-- 3.4. Informasi Kriteria (Cj) -->
+            <h3>Nilai Informasi Kriteria</h3>
             <div class="table-container">
                 <table>
                     <thead>
                         <tr>
                             <th>No</th>
                             <th>Kriteria</th>
-                            <th>Cj</th>
+                            <th>Nilai Cⱼ</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php 
                         $no = 1;
+                        $total_cj = array_sum($data['Cj']);
                         foreach ($data['Cj'] as $j => $cj): 
                         ?>
                             <tr>
@@ -281,15 +252,16 @@ $data = $_SESSION['hasil_perhitungan'];
                 </table>
             </div>
 
-            <!-- 3.6. Bobot Akhir -->
-            <h3>Bobot Kriteria (Hasil CRITIC)</h3>
+            <!-- 3.5. Bobot Akhir -->
+            <h3>Bobot Kriteria</h3>
+            <p class="info-text">Bobot final yang akan digunakan dalam TOPSIS</p>
             <div class="table-container">
                 <table>
                     <thead>
                         <tr>
                             <th>No</th>
                             <th>Kriteria</th>
-                            <th>Bobot</th>
+                            <th>Bobot (Wⱼ)</th>
                             <th>Persentase</th>
                         </tr>
                     </thead>
@@ -312,10 +284,10 @@ $data = $_SESSION['hasil_perhitungan'];
 
         <!-- 4. METODE TOPSIS -->
         <div class="section">
-            <h2>Metode TOPSIS (Perangkingan)</h2>
+            <h2>4. Metode TOPSIS</h2>
             
             <!-- 4.1. Normalisasi TOPSIS -->
-            <h3>Matriks Ternormalisasi (R)</h3>
+            <h3>Matriks Ternormalisasi</h3>
             <div class="table-container">
                 <table>
                     <thead>
@@ -347,7 +319,7 @@ $data = $_SESSION['hasil_perhitungan'];
             </div>
 
             <!-- 4.2. Matriks Terbobot -->
-            <h3>Matriks Terbobot (Y)</h3>
+            <h3>Matriks Terbobot</h3>
             <div class="table-container">
                 <table>
                     <thead>
@@ -386,8 +358,8 @@ $data = $_SESSION['hasil_perhitungan'];
                         <tr>
                             <th>No</th>
                             <th>Kriteria</th>
-                            <th>Y+ (Ideal Positif)</th>
-                            <th>Y- (Ideal Negatif)</th>
+                            <th>A⁺</th>
+                            <th>A⁻</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -414,8 +386,8 @@ $data = $_SESSION['hasil_perhitungan'];
                         <tr>
                             <th>No</th>
                             <th>Varietas</th>
-                            <th>D+ (Jarak ke Ideal Positif)</th>
-                            <th>D- (Jarak ke Ideal Negatif)</th>
+                            <th>D⁺</th>
+                            <th>D⁻</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -427,7 +399,7 @@ $data = $_SESSION['hasil_perhitungan'];
                         ?>
                             <tr>
                                 <td><?= $no++ ?></td>
-                                <td><strong><?= $nama_var ?></strong></td>
+                                <td><?= $nama_var ?></td>
                                 <td><?= number_format($val, 4) ?></td>
                                 <td><?= number_format($data['D_minus'][$i], 4) ?></td>
                             </tr>
@@ -437,7 +409,7 @@ $data = $_SESSION['hasil_perhitungan'];
             </div>
 
             <!-- 4.5. Nilai Preferensi -->
-            <h3>4.5. Nilai Preferensi (Skor Akhir)</h3>
+            <h3>Nilai Preferensi dan Ranking</h3>
             <div class="table-container">
                 <table>
                     <thead>
@@ -478,15 +450,18 @@ $data = $_SESSION['hasil_perhitungan'];
                             elseif ($rank == 3) $row_class = 'rank-3';
                         ?>
                             <tr class="<?= $row_class ?>">
-                                <td><span><?= $rank++ ?></span></td>
+                                <td><?= $rank ?></td>
                                 <td><strong><?= $item['kode'] ?></strong></td>
                                 <td><?= $item['nama'] ?></td>
-                                <td><strong><?= number_format($item['score'], 6) ?></strong></td>
-                            </tr>
-                        <?php endforeach; ?>
+                                <td><strong><?= number_format($item['score'], 4) ?></strong></td>
+                        <?php 
+                            $rank++;
+                        endforeach; 
+                        ?>
                     </tbody>
                 </table>
             </div>
+        </div>
     </div>
 
     <!-- Bootstrap JS -->

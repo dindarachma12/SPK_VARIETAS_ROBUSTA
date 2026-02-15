@@ -44,7 +44,7 @@ if ($cek > 0) {
 }
 
 // Hapus data lama untuk user ini
-mysqli_query($koneksi, "DELETE FROM checked WHERE username = '$username'");
+// mysqli_query($koneksi, "DELETE FROM checked WHERE username = '$username'");
 mysqli_query($koneksi, "DELETE FROM peringkat WHERE username = '$username'");
 
 // ========================================================================
@@ -80,10 +80,10 @@ if (empty($varietas_list)) {
     exit;
 }
 
-// Insert data checked untuk setiap varietas
-foreach ($varietas_list as $id_var) {
-    mysqli_query($koneksi, "INSERT INTO checked (id_varietas, username) VALUES ('$id_var', '$username')");
-}
+// // Insert data checked untuk setiap varietas
+// foreach ($varietas_list as $id_var) {
+//     mysqli_query($koneksi, "INSERT INTO checked (id_varietas, username) VALUES ('$id_var', '$username')");
+// }
 
 // Ambil data kriteria beserta jenisnya
 $query_kriteria = mysqli_query($koneksi, "SELECT * FROM kriteria ORDER BY id_kriteria");

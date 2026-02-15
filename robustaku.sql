@@ -27,41 +27,41 @@ SET time_zone = "+00:00";
 -- Table structure for table `checked`
 --
 
-CREATE TABLE `checked` (
-  `id_checked` int(11) NOT NULL,
-  `id_varietas` int(11) NOT NULL,
-  `username` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+-- CREATE TABLE `checked` (
+--   `id_checked` int(11) NOT NULL,
+--   `id_varietas` int(11) NOT NULL,
+--   `username` varchar(20) NOT NULL
+-- ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `checked`
---
+-- --
+-- -- Dumping data for table `checked`
+-- --
 
-INSERT INTO `checked` (`id_checked`, `id_varietas`, `username`) VALUES
-(1, 1, 'dinda'),
-(2, 2, 'dinda'),
-(3, 3, 'dinda'),
-(4, 4, 'dinda'),
-(5, 5, 'dinda'),
-(6, 6, 'dinda'),
-(7, 7, 'dinda'),
-(8, 8, 'dinda'),
-(9, 9, 'dinda'),
-(10, 10, 'dinda'),
-(11, 11, 'dinda'),
-(12, 12, 'dinda'),
-(64, 1, 'dinddarac'),
-(65, 2, 'dinddarac'),
-(66, 3, 'dinddarac'),
-(67, 4, 'dinddarac'),
-(68, 5, 'dinddarac'),
-(69, 6, 'dinddarac'),
-(70, 7, 'dinddarac'),
-(71, 8, 'dinddarac'),
-(72, 9, 'dinddarac'),
-(73, 10, 'dinddarac'),
-(74, 11, 'dinddarac'),
-(75, 12, 'dinddarac');
+-- INSERT INTO `checked` (`id_checked`, `id_varietas`, `username`) VALUES
+-- (1, 1, 'dinda'),
+-- (2, 2, 'dinda'),
+-- (3, 3, 'dinda'),
+-- (4, 4, 'dinda'),
+-- (5, 5, 'dinda'),
+-- (6, 6, 'dinda'),
+-- (7, 7, 'dinda'),
+-- (8, 8, 'dinda'),
+-- (9, 9, 'dinda'),
+-- (10, 10, 'dinda'),
+-- (11, 11, 'dinda'),
+-- (12, 12, 'dinda'),
+-- (64, 1, 'dinddarac'),
+-- (65, 2, 'dinddarac'),
+-- (66, 3, 'dinddarac'),
+-- (67, 4, 'dinddarac'),
+-- (68, 5, 'dinddarac'),
+-- (69, 6, 'dinddarac'),
+-- (70, 7, 'dinddarac'),
+-- (71, 8, 'dinddarac'),
+-- (72, 9, 'dinddarac'),
+-- (73, 10, 'dinddarac'),
+-- (74, 11, 'dinddarac'),
+-- (75, 12, 'dinddarac');
 
 -- --------------------------------------------------------
 
@@ -302,10 +302,10 @@ INSERT INTO `varietas` (`id_varietas`, `kode_varietas`, `nama_varietas`) VALUES
 --
 
 --
--- Indexes for table `checked`
---
-ALTER TABLE `checked`
-  ADD PRIMARY KEY (`id_checked`);
+-- -- Indexes for table `checked`
+-- --
+-- ALTER TABLE `checked`
+--   ADD PRIMARY KEY (`id_checked`);
 
 --
 -- Indexes for table `kriteria`
@@ -348,10 +348,10 @@ ALTER TABLE `varietas`
 --
 
 --
--- AUTO_INCREMENT for table `checked`
---
-ALTER TABLE `checked`
-  MODIFY `id_checked` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
+-- -- AUTO_INCREMENT for table `checked`
+-- --
+-- ALTER TABLE `checked`
+--   MODIFY `id_checked` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 
 --
 -- AUTO_INCREMENT for table `kriteria`

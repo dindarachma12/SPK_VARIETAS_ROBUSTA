@@ -188,44 +188,44 @@ if (isset($_POST['edit_varietas'])) {
 	}
 }
 
-if (isset($_POST['hitung'])) {
-	$user = $_POST['user'];
-	$pilih = isset($_POST['pilih']) ? $_POST['pilih'] : 0;
+// if (isset($_POST['hitung'])) {
+// 	$user = $_POST['user'];
+// 	$pilih = isset($_POST['pilih']) ? $_POST['pilih'] : 0;
 
-	if ($pilih == 0 || count($pilih) < 2) {
-		header("Location: data_perhitungan.php?validasi=error");
-		exit;
-	} else {
-		$cek = mysqli_query($koneksi, "SELECT * FROM checked WHERE username = '$user'");
-		if (mysqli_num_rows($cek) > 0) {
-			$delete = mysqli_query($koneksi, "DELETE FROM checked WHERE username = '$user'");
-			if ($delete) {
-				for ($i = 0; $i < count($pilih); $i++) {
-					$insert = mysqli_query($koneksi, "INSERT INTO checked(id_varietas, username) VALUES('$pilih[$i]', '$user')");
-					if (!$insert) {
-						header("Location: data_perhitungan.php?validasi=error");
-						exit;
-					}
-				}
-				header("Location: proses_perhitungan.php?validasi=sukses");
-				exit;
-			} else {
-				header("Location: data_perhitungan.php?validasi=error");
-				exit;
-			}
-		} else {
-			for ($i = 0; $i < count($pilih); $i++) {
-				$insert = mysqli_query($koneksi, "INSERT INTO checked(id_varietas, username) VALUES('$pilih[$i]', '$user')");
-				if (!$insert) {
-					header("Location: data_perhitungan.php?validasi=error");
-					exit;
-				}
-			}
-			header("Location: proses_perhitungan.php?validasi=sukses");
-			exit;
-		}
-	}
-}
+// 	if ($pilih == 0 || count($pilih) < 2) {
+// 		header("Location: data_perhitungan.php?validasi=error");
+// 		exit;
+// 	} else {
+// 		$cek = mysqli_query($koneksi, "SELECT * FROM checked WHERE username = '$user'");
+// 		if (mysqli_num_rows($cek) > 0) {
+// 			$delete = mysqli_query($koneksi, "DELETE FROM checked WHERE username = '$user'");
+// 			if ($delete) {
+// 				for ($i = 0; $i < count($pilih); $i++) {
+// 					$insert = mysqli_query($koneksi, "INSERT INTO checked(id_varietas, username) VALUES('$pilih[$i]', '$user')");
+// 					if (!$insert) {
+// 						header("Location: data_perhitungan.php?validasi=error");
+// 						exit;
+// 					}
+// 				}
+// 				header("Location: proses_perhitungan.php?validasi=sukses");
+// 				exit;
+// 			} else {
+// 				header("Location: data_perhitungan.php?validasi=error");
+// 				exit;
+// 			}
+// 		} else {
+// 			for ($i = 0; $i < count($pilih); $i++) {
+// 				$insert = mysqli_query($koneksi, "INSERT INTO checked(id_varietas, username) VALUES('$pilih[$i]', '$user')");
+// 				if (!$insert) {
+// 					header("Location: data_perhitungan.php?validasi=error");
+// 					exit;
+// 				}
+// 			}
+// 			header("Location: proses_perhitungan.php?validasi=sukses");
+// 			exit;
+// 		}
+// 	}
+// }
 
 if (isset($_POST['edit_profil'])) {
 	$id = htmlspecialchars($_POST['id']);
