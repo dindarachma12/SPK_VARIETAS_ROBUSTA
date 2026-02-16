@@ -64,8 +64,15 @@ $data = $_SESSION['hasil_perhitungan'];
             <h1 class="hero-title">Detail Rekomendasi</h1>
         </div>
         <?php
-        $nama = $_SESSION['username'];
-        $query = mysqli_query($koneksi, "SELECT varietas.nama_varietas AS nama_varietas FROM peringkat JOIN varietas ON peringkat.id_varietas = varietas.id_varietas WHERE peringkat.username = '$nama' ORDER BY peringkat.nilai_peringkat DESC LIMIT 1");
+        $username = $_SESSION['username'];
+        $qUser = mysqli_query($koneksi, "
+            SELECT id_pengguna 
+            FROM pengguna 
+            WHERE username = '$username'
+        ");
+        $dataUser = mysqli_fetch_assoc($qUser);
+        $id_pengguna = $dataUser['id_pengguna'];
+        $query = mysqli_query($koneksi, "SELECT varietas.nama_varietas AS nama_varietas FROM peringkat JOIN varietas ON peringkat.id_varietas = varietas.id_varietas WHERE peringkat.id_pengguna = '$id_pengguna' ORDER BY peringkat.nilai_peringkat DESC LIMIT 1");
         $data_rekomendasi = mysqli_fetch_array($query);
         ?>
 

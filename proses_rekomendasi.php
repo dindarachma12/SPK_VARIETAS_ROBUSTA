@@ -16,6 +16,13 @@ if (!isset($_POST['masuk'])) {
 // AMBIL DATA DARI FORM
 // ========================================================================
 $username = $_SESSION['username'];
+$qUser = mysqli_query($koneksi, "
+    SELECT id_pengguna 
+    FROM pengguna 
+    WHERE username = '$username'
+");
+$dataUser = mysqli_fetch_assoc($qUser);
+$id_pengguna = $dataUser['id_pengguna'];
 $kriteria_ids = isset($_POST['kriteria']) ? $_POST['kriteria'] : [];
 $subkriteria_ids = isset($_POST['subkriteria']) ? $_POST['subkriteria'] : [];
 
@@ -45,7 +52,7 @@ if ($cek > 0) {
 
 // Hapus data lama untuk user ini
 // mysqli_query($koneksi, "DELETE FROM checked WHERE username = '$username'");
-mysqli_query($koneksi, "DELETE FROM peringkat WHERE username = '$username'");
+mysqli_query($koneksi, "DELETE FROM peringkat WHERE id_pengguna = '$id_pengguna'");
 
 // ========================================================================
 // AMBIL KONDISI LAHAN PETANI (INPUT USER)
@@ -387,9 +394,9 @@ $_SESSION['hasil_perhitungan'] = [
 // ========================================================================
 // SIMPAN HASIL KE DATABASE
 // ========================================================================
-$cek_peringkat = mysqli_query($koneksi, "SELECT * FROM peringkat WHERE username = '$username'");
+$cek_peringkat = mysqli_query($koneksi, "SELECT * FROM peringkat WHERE id_pengguna = '$id_pengguna'");
 if (mysqli_num_rows($cek_peringkat) > 0) {
-    mysqli_query($koneksi, "DELETE FROM peringkat WHERE username = '$username'");
+    mysqli_query($koneksi, "DELETE FROM peringkat WHERE id_pengguna = '$id_pengguna'");
 }
 
 $success = true;
@@ -398,8 +405,8 @@ for ($i = 0; $i < $m; $i++) {
     $nilai = round($scores[$i], 6);
     
     $insert = mysqli_query($koneksi, "
-        INSERT INTO peringkat (id_varietas, nilai_peringkat, username) 
-        VALUES ('$id_var', '$nilai', '$username')
+        INSERT INTO peringkat (id_varietas, nilai_peringkat, id_pengguna) 
+        VALUES ('$id_var', '$nilai', '$id_pengguna')
     ");
     
     if (!$insert) {

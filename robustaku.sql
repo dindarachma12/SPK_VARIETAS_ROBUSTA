@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 04, 2026 at 06:49 AM
+-- Generation Time: Feb 16, 2026 at 05:33 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,48 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `robustaku`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `checked`
---
-
--- CREATE TABLE `checked` (
---   `id_checked` int(11) NOT NULL,
---   `id_varietas` int(11) NOT NULL,
---   `username` varchar(20) NOT NULL
--- ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --
--- -- Dumping data for table `checked`
--- --
-
--- INSERT INTO `checked` (`id_checked`, `id_varietas`, `username`) VALUES
--- (1, 1, 'dinda'),
--- (2, 2, 'dinda'),
--- (3, 3, 'dinda'),
--- (4, 4, 'dinda'),
--- (5, 5, 'dinda'),
--- (6, 6, 'dinda'),
--- (7, 7, 'dinda'),
--- (8, 8, 'dinda'),
--- (9, 9, 'dinda'),
--- (10, 10, 'dinda'),
--- (11, 11, 'dinda'),
--- (12, 12, 'dinda'),
--- (64, 1, 'dinddarac'),
--- (65, 2, 'dinddarac'),
--- (66, 3, 'dinddarac'),
--- (67, 4, 'dinddarac'),
--- (68, 5, 'dinddarac'),
--- (69, 6, 'dinddarac'),
--- (70, 7, 'dinddarac'),
--- (71, 8, 'dinddarac'),
--- (72, 9, 'dinddarac'),
--- (73, 10, 'dinddarac'),
--- (74, 11, 'dinddarac'),
--- (75, 12, 'dinddarac');
 
 -- --------------------------------------------------------
 
@@ -105,16 +63,6 @@ CREATE TABLE `matriks` (
 --
 
 INSERT INTO `matriks` (`id_matriks`, `id_varietas`, `id_kriteria`, `id_subkriteria`) VALUES
-(27, 0, 1, 0),
-(28, 0, 2, 0),
-(29, 0, 3, 0),
-(30, 0, 4, 0),
-(31, 0, 5, 0),
-(167, 1, 1, 1),
-(168, 1, 2, 6),
-(169, 1, 3, 11),
-(170, 1, 4, 18),
-(171, 1, 5, 21),
 (177, 2, 1, 4),
 (178, 2, 2, 6),
 (179, 2, 3, 11),
@@ -169,7 +117,12 @@ INSERT INTO `matriks` (`id_matriks`, `id_varietas`, `id_kriteria`, `id_subkriter
 (273, 8, 2, 6),
 (274, 8, 3, 12),
 (275, 8, 4, 17),
-(276, 8, 5, 22);
+(276, 8, 5, 22),
+(282, 1, 1, 1),
+(283, 1, 2, 6),
+(284, 1, 3, 11),
+(285, 1, 4, 18),
+(286, 1, 5, 21);
 
 -- --------------------------------------------------------
 
@@ -190,7 +143,9 @@ CREATE TABLE `pengguna` (
 --
 
 INSERT INTO `pengguna` (`id_pengguna`, `nama`, `username`, `password`, `level`) VALUES
-(10, 'dinda', 'dinddarac', '$2y$10$MPGB4.aqkDC0loc4sScpu.9nqCYz9y8yuSixR8/1HyZYugI4V5B1.', 'admin');
+(17, 'dinda', 'dinda', '$2y$10$X9DOTVGYcgSnPGtxVjto3ecvK4TwtVcwD7dI7IooqFn.dgZwfFhtG', 'admin'),
+(18, 'petani', 'petani', '$2y$10$n47RUj.smSFZz70uZcHJf.3buwwaXQokDuyWlhcOvBzISiw7ZIB3y', 'user'),
+(19, 'admin', 'admin', '$2y$10$Rd5p.Xz8FghgPGCFp58fheHURxc7caBOL3KsJJxmHpHYIdfHmX376', 'admin');
 
 -- --------------------------------------------------------
 
@@ -202,26 +157,26 @@ CREATE TABLE `peringkat` (
   `id_peringkat` int(11) NOT NULL,
   `id_varietas` int(11) NOT NULL,
   `nilai_peringkat` float NOT NULL,
-  `username` varchar(20) NOT NULL
+  `id_pengguna` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `peringkat`
 --
 
-INSERT INTO `peringkat` (`id_peringkat`, `id_varietas`, `nilai_peringkat`, `username`) VALUES
-(37, 1, 0.645487, 'dinddarac'),
-(38, 2, 0.619294, 'dinddarac'),
-(39, 3, 0.466349, 'dinddarac'),
-(40, 4, 0.341378, 'dinddarac'),
-(41, 5, 0.716177, 'dinddarac'),
-(42, 6, 1, 'dinddarac'),
-(43, 7, 0.566278, 'dinddarac'),
-(44, 8, 0.489954, 'dinddarac'),
-(45, 9, 0.7601, 'dinddarac'),
-(46, 10, 0.651594, 'dinddarac'),
-(47, 11, 0.704117, 'dinddarac'),
-(48, 12, 0.460572, 'dinddarac');
+INSERT INTO `peringkat` (`id_peringkat`, `id_varietas`, `nilai_peringkat`, `id_pengguna`) VALUES
+(1, 1, 0.76814, 17),
+(2, 2, 0.2778, 17),
+(3, 3, 0.34468, 17),
+(4, 4, 0.266832, 17),
+(5, 5, 0.700467, 17),
+(6, 6, 1, 17),
+(7, 7, 0.299533, 17),
+(8, 8, 0.318889, 17),
+(9, 9, 0.821731, 17),
+(10, 10, 0.78636, 17),
+(11, 11, 0.813641, 17),
+(12, 12, 0.342883, 17);
 
 -- --------------------------------------------------------
 
@@ -302,12 +257,6 @@ INSERT INTO `varietas` (`id_varietas`, `kode_varietas`, `nama_varietas`) VALUES
 --
 
 --
--- -- Indexes for table `checked`
--- --
--- ALTER TABLE `checked`
---   ADD PRIMARY KEY (`id_checked`);
-
---
 -- Indexes for table `kriteria`
 --
 ALTER TABLE `kriteria`
@@ -317,7 +266,10 @@ ALTER TABLE `kriteria`
 -- Indexes for table `matriks`
 --
 ALTER TABLE `matriks`
-  ADD PRIMARY KEY (`id_matriks`);
+  ADD PRIMARY KEY (`id_matriks`),
+  ADD KEY `fk_matriks_varietas` (`id_varietas`),
+  ADD KEY `fk_matriks_kriteria` (`id_kriteria`),
+  ADD KEY `fk_matriks_subkriteria` (`id_subkriteria`);
 
 --
 -- Indexes for table `pengguna`
@@ -329,7 +281,9 @@ ALTER TABLE `pengguna`
 -- Indexes for table `peringkat`
 --
 ALTER TABLE `peringkat`
-  ADD PRIMARY KEY (`id_peringkat`);
+  ADD PRIMARY KEY (`id_peringkat`),
+  ADD KEY `fk_peringkat_pengguna` (`id_pengguna`),
+  ADD KEY `fk_peringkat_varietas` (`id_varietas`);
 
 --
 -- Indexes for table `subkriteria`
@@ -348,46 +302,59 @@ ALTER TABLE `varietas`
 --
 
 --
--- -- AUTO_INCREMENT for table `checked`
--- --
--- ALTER TABLE `checked`
---   MODIFY `id_checked` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
-
---
 -- AUTO_INCREMENT for table `kriteria`
 --
 ALTER TABLE `kriteria`
-  MODIFY `id_kriteria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_kriteria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `matriks`
 --
 ALTER TABLE `matriks`
-  MODIFY `id_matriks` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=277;
+  MODIFY `id_matriks` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=287;
 
 --
 -- AUTO_INCREMENT for table `pengguna`
 --
 ALTER TABLE `pengguna`
-  MODIFY `id_pengguna` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_pengguna` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `peringkat`
 --
 ALTER TABLE `peringkat`
-  MODIFY `id_peringkat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `id_peringkat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `subkriteria`
 --
 ALTER TABLE `subkriteria`
-  MODIFY `id_subkriteria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id_subkriteria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `varietas`
 --
 ALTER TABLE `varietas`
   MODIFY `id_varietas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `matriks`
+--
+ALTER TABLE `matriks`
+  ADD CONSTRAINT `fk_matriks_kriteria` FOREIGN KEY (`id_kriteria`) REFERENCES `kriteria` (`id_kriteria`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_matriks_subkriteria` FOREIGN KEY (`id_subkriteria`) REFERENCES `subkriteria` (`id_subkriteria`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_matriks_varietas` FOREIGN KEY (`id_varietas`) REFERENCES `varietas` (`id_varietas`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `peringkat`
+--
+ALTER TABLE `peringkat`
+  ADD CONSTRAINT `fk_peringkat_pengguna` FOREIGN KEY (`id_pengguna`) REFERENCES `pengguna` (`id_pengguna`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_peringkat_varietas` FOREIGN KEY (`id_varietas`) REFERENCES `varietas` (`id_varietas`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

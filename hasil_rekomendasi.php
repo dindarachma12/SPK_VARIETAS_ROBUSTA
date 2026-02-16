@@ -78,8 +78,15 @@ $validasi = isset($_GET['validasi']) ? trim($_GET['validasi']) : "";
         ?>
 
         <?php
-        $nama = $_SESSION['username'];
-        $query = mysqli_query($koneksi, "SELECT varietas.nama_varietas AS nama_varietas FROM peringkat JOIN varietas ON peringkat.id_varietas = varietas.id_varietas WHERE peringkat.username = '$nama' ORDER BY peringkat.nilai_peringkat DESC LIMIT 1");
+        $username = $_SESSION['username'];
+        $qUser = mysqli_query($koneksi, "
+            SELECT id_pengguna 
+            FROM pengguna 
+            WHERE username = '$username'
+        ");
+        $dataUser = mysqli_fetch_assoc($qUser);
+        $id_pengguna = $dataUser['id_pengguna'];
+        $query = mysqli_query($koneksi, "SELECT varietas.nama_varietas AS nama_varietas FROM peringkat JOIN varietas ON peringkat.id_varietas = varietas.id_varietas WHERE peringkat.id_pengguna = '$id_pengguna' ORDER BY peringkat.nilai_peringkat DESC LIMIT 1");
         $data_rekomendasi = mysqli_fetch_array($query);
         ?>
 
@@ -88,7 +95,7 @@ $validasi = isset($_GET['validasi']) ? trim($_GET['validasi']) : "";
             Berdasarkan hasil perhitungan Sistem Pendukung Keputusan dengan menggunakan metode TOPSIS dan CRITIC, didapatkan bahwa "<strong><?php echo $data_rekomendasi['nama_varietas']; ?></strong>" adalah varietas kopi robusta yang paling direkomendasikan untuk lahan Anda.
         </p>
         <?php
-        $query = mysqli_query($koneksi, "SELECT peringkat.*, varietas.kode_varietas, varietas.nama_varietas FROM peringkat JOIN varietas ON peringkat.id_varietas = varietas.id_varietas WHERE peringkat.username = '$nama' ORDER BY peringkat.nilai_peringkat DESC");
+        $query = mysqli_query($koneksi, "SELECT peringkat.*, varietas.kode_varietas, varietas.nama_varietas FROM peringkat JOIN varietas ON peringkat.id_varietas = varietas.id_varietas WHERE peringkat.id_pengguna = '$id_pengguna' ORDER BY peringkat.nilai_peringkat DESC");
         ?>
         <div class="table-container">
             <table class="table table-hover mb-0" id="dataTable">

@@ -2,7 +2,7 @@
 session_start();
 include "koneksi.php";
 
-if (!isset($_SESSION['nama']) || !isset($_SESSION['level'])) {
+if (!isset($_SESSION['id']) || !isset($_SESSION['level']) || !isset($_SESSION['nama'])) {
     header("Location: index.php");
     exit;
 }
@@ -18,34 +18,34 @@ $query = mysqli_query($koneksi, "SELECT * FROM pengguna WHERE id_pengguna = '$id
 $data = mysqli_fetch_array($query);
 
 /* Proses update */
-if (isset($_POST['edit_profil'])) {
-    $nama     = htmlspecialchars($_POST['nama']);
-    $password = $_POST['password'];
-    $pass_new = $_POST['pass_new'];
+// if (isset($_POST['edit_profil'])) {
+//     $nama     = htmlspecialchars($_POST['nama']);
+//     $password = $_POST['password'];
+//     $pass_new = $_POST['pass_new'];
 
-    if (!empty($password) && empty($pass_new)) {
-        $password_hash = password_hash($password, PASSWORD_DEFAULT);
-        mysqli_query($koneksi, "UPDATE pengguna SET nama='$nama' WHERE id_pengguna='$data[id_pengguna]'");
-        $_SESSION['nama'] = $nama;
-        header("Location: profil.php?validasi=sukses");
-        exit;
-    }
-    else if (!empty($password) && !empty($pass_new)) {
-        if (password_verify($password, $data['password'])) {
-            // Hash password baru
-            $password_hash = password_hash($pass_new, PASSWORD_DEFAULT);
-            mysqli_query($koneksi, "UPDATE pengguna SET nama='$nama', password='$password_hash' WHERE id_pengguna='$data[id_pengguna]'");
-            $_SESSION['nama'] = $nama;
-            header("Location: profil.php?validasi=sukses");
-            exit;
-        } else {
-            // Password lama salah
-            header("Location: profil.php?validasi=error");
-            exit;
-        }
-    }
+//     if (!empty($password) && empty($pass_new)) {
+//         $password_hash = password_hash($password, PASSWORD_DEFAULT);
+//         mysqli_query($koneksi, "UPDATE pengguna SET nama='$nama' WHERE id_pengguna='$data[id_pengguna]'");
+//         $_SESSION['nama'] = $nama;
+//         header("Location: profil.php?validasi=sukses");
+//         exit;
+//     }
+//     else if (!empty($password) && !empty($pass_new)) {
+//         if (password_verify($password, $data['password'])) {
+//             // Hash password baru
+//             $password_hash = password_hash($pass_new, PASSWORD_DEFAULT);
+//             mysqli_query($koneksi, "UPDATE pengguna SET nama='$nama', password='$password_hash' WHERE id_pengguna='$data[id_pengguna]'");
+//             $_SESSION['nama'] = $nama;
+//             header("Location: profil.php?validasi=sukses");
+//             exit;
+//         } else {
+//             // Password lama salah
+//             header("Location: profil.php?validasi=error");
+//             exit;
+//         }
+//     }
 
-}
+// }
 ?>
 <!DOCTYPE html>
 <html lang="id">
