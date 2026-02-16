@@ -81,6 +81,12 @@ $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
                     <button type='button' class='btn-close' data-bs-dismiss='alert'></button>
                   </div>";
         }
+        elseif ($validasi == "warning") {
+            echo "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
+                    Kode varietas telah digunakan!
+                    <button type='button' class='btn-close' data-bs-dismiss='alert'></button>
+                  </div>";
+        }
         ?>
 
         <div class="d-flex justify-content-between align-items-center mb-3">
