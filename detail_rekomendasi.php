@@ -269,7 +269,6 @@ $data = $_SESSION['hasil_perhitungan'];
                             <th>No</th>
                             <th>Kriteria</th>
                             <th>Bobot (Wⱼ)</th>
-                            <th>Persentase</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -281,10 +280,15 @@ $data = $_SESSION['hasil_perhitungan'];
                                 <td><?= $no++ ?></td>
                                 <td><?= $data['kriteria_data'][$j]['nama_kriteria'] ?></td>
                                 <td><?= number_format($w, 4) ?></td>
-                                <td><strong><?= number_format($w * 100, 2) ?>%</strong></td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
+                    <tfoot>
+                    <tr>
+                        <td colspan="2" style="text-align: center;"><strong>Total</strong></td>
+                        <td style="text-align: center;"><strong><?= number_format(array_sum($data['weights'])) ?></strong></td>
+                    </tr>
+                   </tfoot>
                 </table>
             </div>
         </div>
