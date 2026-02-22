@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 16, 2026 at 05:33 PM
+-- Generation Time: Feb 22, 2026 at 05:07 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -40,10 +40,10 @@ CREATE TABLE `kriteria` (
 
 INSERT INTO `kriteria` (`id_kriteria`, `kode_kriteria`, `nama_kriteria`, `jenis_kriteria`) VALUES
 (1, 'C1', 'Jenis Tanah', 'benefit'),
-(2, 'C2', 'Curah Hujan', 'cost'),
-(3, 'C3', 'Suhu', 'cost'),
-(4, 'C4', 'Kelembapan Lingkungan', 'cost'),
-(5, 'C5', 'Ketinggian', 'cost');
+(2, 'C2', 'Curah Hujan', 'benefit'),
+(3, 'C3', 'Suhu', 'benefit'),
+(4, 'C4', 'Kelembapan Lingkungan', 'benefit'),
+(5, 'C5', 'Ketinggian', 'benefit');
 
 -- --------------------------------------------------------
 
@@ -83,11 +83,6 @@ INSERT INTO `matriks` (`id_matriks`, `id_varietas`, `id_kriteria`, `id_subkriter
 (229, 11, 3, 11),
 (230, 11, 4, 17),
 (231, 11, 5, 21),
-(232, 3, 1, 4),
-(233, 3, 2, 6),
-(234, 3, 3, 12),
-(235, 3, 4, 18),
-(236, 3, 5, 21),
 (237, 4, 1, 5),
 (238, 4, 2, 7),
 (239, 4, 3, 11),
@@ -122,7 +117,12 @@ INSERT INTO `matriks` (`id_matriks`, `id_varietas`, `id_kriteria`, `id_subkriter
 (283, 1, 2, 6),
 (284, 1, 3, 11),
 (285, 1, 4, 18),
-(286, 1, 5, 21);
+(286, 1, 5, 21),
+(287, 3, 1, 4),
+(288, 3, 2, 6),
+(289, 3, 3, 12),
+(290, 3, 4, 18),
+(291, 3, 5, 21);
 
 -- --------------------------------------------------------
 
@@ -165,18 +165,18 @@ CREATE TABLE `peringkat` (
 --
 
 INSERT INTO `peringkat` (`id_peringkat`, `id_varietas`, `nilai_peringkat`, `id_pengguna`) VALUES
-(1, 1, 0.76814, 17),
-(2, 2, 0.2778, 17),
-(3, 3, 0.34468, 17),
-(4, 4, 0.266832, 17),
-(5, 5, 0.700467, 17),
-(6, 6, 1, 17),
-(7, 7, 0.299533, 17),
-(8, 8, 0.318889, 17),
-(9, 9, 0.821731, 17),
-(10, 10, 0.78636, 17),
-(11, 11, 0.813641, 17),
-(12, 12, 0.342883, 17);
+(49, 1, 0.703592, 17),
+(50, 2, 0.468006, 17),
+(51, 3, 0.372089, 17),
+(52, 4, 0.223504, 17),
+(53, 5, 0.692884, 17),
+(54, 6, 1, 17),
+(55, 7, 0.400539, 17),
+(56, 8, 0.369725, 17),
+(57, 9, 0.784123, 17),
+(58, 10, 0.715732, 17),
+(59, 11, 0.746778, 17),
+(60, 12, 0.348201, 17);
 
 -- --------------------------------------------------------
 
@@ -241,7 +241,7 @@ CREATE TABLE `varietas` (
 INSERT INTO `varietas` (`id_varietas`, `kode_varietas`, `nama_varietas`) VALUES
 (1, 'K1', 'BP 409'),
 (2, 'K2', 'SA 237'),
-(3, 'K3', 'BP 228'),
+(3, 'K3', 'BP 288'),
 (4, 'K4', 'BP 358'),
 (5, 'K5', 'BP 42'),
 (6, 'K6', 'SA 203'),
@@ -311,7 +311,7 @@ ALTER TABLE `kriteria`
 -- AUTO_INCREMENT for table `matriks`
 --
 ALTER TABLE `matriks`
-  MODIFY `id_matriks` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=287;
+  MODIFY `id_matriks` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=292;
 
 --
 -- AUTO_INCREMENT for table `pengguna`
@@ -323,7 +323,7 @@ ALTER TABLE `pengguna`
 -- AUTO_INCREMENT for table `peringkat`
 --
 ALTER TABLE `peringkat`
-  MODIFY `id_peringkat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_peringkat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- AUTO_INCREMENT for table `subkriteria`
