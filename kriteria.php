@@ -36,8 +36,10 @@ $query = mysqli_query($koneksi, "SELECT * FROM kriteria ORDER BY id_kriteria ASC
                 <a href="homepage.php"><img src="assets/img/logo_robustaku.png" alt="RobustaKu Logo"></a>
             </div>
 
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 30 30" fill="none">
+                    <path stroke="#7a4b2a" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2.5" d="M4 7h22M4 15h22M4 23h22"/>
+                </svg>
             </button>
 
             <div class="collapse navbar-collapse justify-content-end" id="navMenu">
